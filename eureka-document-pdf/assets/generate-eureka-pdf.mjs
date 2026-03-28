@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync, existsSync } from 'fs';
+import { readFileSync, writeFileSync } from 'fs';
 import { marked } from 'marked';
 import puppeteer from 'puppeteer-core';
 import path from 'path';
@@ -28,23 +28,15 @@ const bodyHtml = marked.parse(mdContent);
 
 const identitySource = readFileSync(identityHtmlStructure, 'utf8');
 
-const logoPath = path.join(assetsDir, 'euk-logo-horizontal.png');
-const logoDataUri = existsSync(logoPath)
-  ? `data:image/png;base64,${readFileSync(logoPath).toString('base64')}`
-  : null;
-
 const footerInnerHtml = buildEurekaFooter();
 
-const buildHeader = (fistPage = true) => {
-  const logoUrl = fistPage ? logoDataUri : null;
-  return buildEurekaHeader(logoUrl, fistPage);
-}
+const buildHeader = (opts = {}) => buildEurekaHeader(opts);
 
-const buildFullHtml = (contentStyles, headerHtml, fixedHeader = false) => {
+const buildFullHtml = (contentStyles, headerHtml, { isFirstPage = true, showLogo = true }) => {
   let html = identitySource.replace('<!-- document-content -->', bodyHtml);
   html = html.replace('<!-- header-content -->', headerHtml);
   html = html.replace('<!-- footer-content -->', footerInnerHtml);
-  html = html.replace('</head>', contentStyles + buildHeader(fixedHeader) + '\n</head>');
+  html = html.replace('</head>', contentStyles + buildHeader({ isFirstPage, showLogo }) + '\n</head>');
   return html;
 };
 
@@ -84,7 +76,7 @@ const browser = await puppeteer.launch({
 const page = await browser.newPage();
 
 try {
-  await page.setContent(buildFullHtml(buildPageContentStyles(), '', true), {
+  await page.setContent(buildFullHtml(buildPageContentStyles(), '', { isFirstPage: true }), {
     waitUntil: 'load',
   });
   const countBuffer = await page.pdf(basePdfOptions);
@@ -92,13 +84,13 @@ try {
   const pageCount = countDoc.getPageCount();
 
   if (pageCount === 1) {
-    await page.setContent(buildFullHtml(buildPageContentStyles(), '', true), {
+    await page.setContent(buildFullHtml(buildPageContentStyles(), '', { isFirstPage: true }), {
       waitUntil: 'load',
     });
     const singleBuffer = await page.pdf(basePdfOptions);
     writeFileSync(outputPdf, singleBuffer);
   } else {
-    await page.setContent(buildFullHtml(buildPageContentStyles(), '', true), {
+    await page.setContent(buildFullHtml(buildPageContentStyles(), '', { isFirstPage: true }), {
       waitUntil: 'load',
     });
     const page1Buffer = await page.pdf({
@@ -106,7 +98,7 @@ try {
       pageRanges: '1',
     });
 
-    await page.setContent(buildFullHtml(buildPageContentStyles(), '', false), {
+    await page.setContent(buildFullHtml(buildPageContentStyles(), '', { isFirstPage: false, showLogo: false }), {
       waitUntil: 'load',
     });
     const restBuffer = await page.pdf({

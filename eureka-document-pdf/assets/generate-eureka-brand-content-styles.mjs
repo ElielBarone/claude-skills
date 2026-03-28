@@ -1,12 +1,4 @@
 import { contentHorizontalPaddingPx, contentTopPaddingPx, contentBottomPaddingPx, headerHeightPx, footerHeightPx } from './eureka-document-config.mjs';
-import {
-  a4PageWidthPx,
-  a4PageHeightPx,
-  buildGreyBackgroundUri,
-  buildYellowBackgroundUri,
-  buildHeaderGreySvgUri,
-  buildFooterYellowSvgUri,
-} from './generate-eureka-brand-shapes.mjs';
 
 const buildSharedMarkdownStyles = () => `
   .content h1 { font-size: 22px; font-weight: 700; color: #1a1a1a; margin: 0 0 20px; padding-bottom: 10px; border-bottom: 2px solid #f5a623; }
@@ -31,10 +23,7 @@ const buildSharedMarkdownStyles = () => `
   }
 `;
 
-const buildBaseLayoutStyles = () => {
-  const headerGreyUri = buildHeaderGreySvgUri();
-  const footerYellowUri = buildFooterYellowSvgUri();
-  return `
+const buildBaseLayoutStyles = () => `
   @page { size: A4; margin: 0; }
   html {
     color-scheme: light;
@@ -58,17 +47,7 @@ const buildBaseLayoutStyles = () => {
     color: #1a1a1a;
   }
   .page-brand-layer { display: none !important; }
-  .logo {
-    position: fixed; top: 0; left: 0; right: 0;
-    height: ${headerHeightPx}px; z-index: 1;
-    overflow: hidden; background: #fff;
-    background-image: url('${headerGreyUri}');
-    background-repeat: no-repeat;
-    background-position: right top;
-    background-size: ${a4PageWidthPx}px ${headerHeightPx}px;
-    -webkit-print-color-adjust: exact; print-color-adjust: exact;
-    box-sizing: border-box;
-  }
+
   .logo img {
     position: absolute;
     top: 16px; right: ${contentHorizontalPaddingPx}px;
@@ -78,10 +57,6 @@ const buildBaseLayoutStyles = () => {
     position: fixed; top: 0; left: 0; right: 0;
     height: ${headerHeightPx}px; z-index: 1;
     overflow: hidden; background: #fff;
-    background-image: url('${headerGreyUri}');
-    background-repeat: no-repeat;
-    background-position: right top;
-    background-size: ${a4PageWidthPx}px ${headerHeightPx}px;
     -webkit-print-color-adjust: exact; print-color-adjust: exact;
     box-sizing: border-box;
     display: none;
@@ -90,12 +65,6 @@ const buildBaseLayoutStyles = () => {
     position: fixed; bottom: 0; left: 0; right: 0;
     height: ${footerHeightPx}px; z-index: 1;
     overflow: hidden; background: #fff;
-    background-image: url('${footerYellowUri}');
-    background-repeat: no-repeat;
-    background-position: left bottom;
-    background-size: ${a4PageWidthPx}px ${footerHeightPx}px;
-    -webkit-print-color-adjust: exact; print-color-adjust: exact;
-    box-sizing: border-box;
   }
   .content {
     position: relative;
@@ -113,50 +82,15 @@ const buildBaseLayoutStyles = () => {
     }
   }
 `;
-};
 
-export const buildFirstPageContentStyles = () => {
-  const greyBackgroundUri = buildGreyBackgroundUri();
-  const yellowUri = buildYellowBackgroundUri();
-  return `
+export const buildPageContentStyles = () => `
 <style>
 ${buildBaseLayoutStyles()}
   html {
     background-color: #fff;
-    background-image: url('${greyBackgroundUri}'), url('${yellowUri}');
-    background-attachment: scroll, scroll;
-    background-repeat: repeat-y, repeat-y;
-    background-position: 0 0, 0 0;
-    background-size: ${a4PageWidthPx}px ${a4PageHeightPx}px, ${a4PageWidthPx}px ${a4PageHeightPx}px;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
 ${buildSharedMarkdownStyles()}
 </style>
 `;
-};
-
-export const buildContinuationContentStyles = () => {
-  const greyBackgroundUri = buildGreyBackgroundUri();
-  const yellowUri = buildYellowBackgroundUri();
-  return `
-<style>
-${buildBaseLayoutStyles()}
-  .logo { display: none !important; }
-  .logo-continuation { display: block !important; }
-  html {
-    background-color: #fff;
-    background-image: url('${greyBackgroundUri}'), url('${yellowUri}');
-    background-attachment: scroll, scroll;
-    background-repeat: repeat-y, repeat-y;
-    background-position: 0 0, 0 0;
-    background-size: ${a4PageWidthPx}px ${a4PageHeightPx}px, ${a4PageWidthPx}px ${a4PageHeightPx}px;
-    -webkit-print-color-adjust: exact;
-    print-color-adjust: exact;
-  }
-${buildSharedMarkdownStyles()}
-</style>
-`;
-};
-
-export const buildBrandContentStyles = buildContinuationContentStyles;

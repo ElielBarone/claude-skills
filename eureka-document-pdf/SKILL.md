@@ -19,7 +19,7 @@ Treat any failed gate as a failed run.
 
 ## Header and Footer Template Placement
 
-Chromium renders `headerTemplate`/`footerTemplate` in a separate mini-document with a default **`body { margin: 8px }`**. The canonical templates compensate using **`chromiumTemplateBodyMarginPx`** (8) from `generate-eureka-brand-shapes.mjs`: **`margin: -8px -8px 0 -8px`** on the outer shell and **`width: a4PageWidthPx + 16`**. Do not rely on `<style>html,body{margin:0}</style>` alone.
+Chromium renders `headerTemplate`/`footerTemplate` in a separate mini-document with a default **`body { margin: 8px }`**. The canonical templates compensate using **`chromiumTemplateBodyMarginPx`** (8) from `eureka-document-config.mjs`: **`margin: -8px -8px 0 -8px`** on the outer shell and **`width: a4PageWidthPx + 16`**. Do not rely on `<style>html,body{margin:0}</style>` alone.
 
 ## Canonical Implementation References
 
@@ -27,7 +27,7 @@ Chromium renders `headerTemplate`/`footerTemplate` in a separate mini-document w
 - `assets/generate-eureka-brand-header.mjs`
 - `assets/generate-eureka-brand-footer.mjs`
 - `assets/generate-eureka-brand-content-styles.mjs`
-- `assets/generate-eureka-brand-shapes.mjs`
+
 
 `buildPlaceholderHeaderTemplate` (in `generate-eureka-brand-header.mjs`) is used only for the internal page-count PDF pass; it is not part of the final merged output.
 
@@ -56,7 +56,7 @@ Confirm:
 
 - Chrome at `/usr/bin/google-chrome` (override `executablePath` in `assets/generate-eureka-pdf.mjs` if different).
 - `displayHeaderFooter: true` is set.
-- PDF top/bottom margins use `headerHeightPx` / `footerHeightPx` from `generate-eureka-brand-shapes.mjs`.
+- PDF top/bottom margins use `headerHeightPx` / `footerHeightPx` from `eureka-document-config.mjs`.
 - Launch args include `--no-sandbox` and `--disable-setuid-sandbox`.
 
 ## Phase 3 — Render

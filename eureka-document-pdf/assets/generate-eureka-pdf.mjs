@@ -1,15 +1,13 @@
-import { readFileSync, writeFileSync } from 'fs';
+import { readFileSync, writeFileSync, existsSync } from 'fs';
 import { marked } from 'marked';
 import puppeteer from 'puppeteer-core';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { PDFDocument } from 'pdf-lib';
-import { buildEurekaHeaderContinuationInnerHtml } from './generate-eureka-brand-header.mjs';
+
 import { buildEurekaFooterInnerHtml } from './generate-eureka-brand-footer.mjs';
-import {
-  buildFirstPageContentStyles,
-  buildContinuationContentStyles,
-} from './generate-eureka-brand-content-styles.mjs';
+import { buildEurekaHeaderInnerHtml } from './generate-eureka-brand-header.mjs';
+import { buildPageContentStyles } from './generate-eureka-brand-content-styles.mjs';
 import { headerHeightPx, footerHeightPx } from './eureka-document-config.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -23,25 +21,29 @@ if (!inputMd || !outputPdf) {
 }
 
 const assetsDir = path.join(projectRoot, 'assets');
-const identityHtmlPath = path.join(assetsDir, 'eureka-document-pdf-structure.html');
+const identityHtmlStructure = path.join(assetsDir, 'eureka-document-pdf-structure.html');
 
 const mdContent = readFileSync(inputMd, 'utf8');
 const bodyHtml = marked.parse(mdContent);
 
-const logoSvg = readFileSync(path.join(assetsDir, 'eureka-logo-horizontal.svg'), 'utf8');
-const logoDataUri = `data:image/svg+xml,${encodeURIComponent(logoSvg)}`;
+const identitySource = readFileSync(identityHtmlStructure, 'utf8');
 
-const identitySource = readFileSync(identityHtmlPath, 'utf8');
+const logoPath = path.join(assetsDir, 'euk-logo-horizontal.png');
+const logoDataUri = existsSync(logoPath)
+  ? `data:image/png;base64,${readFileSync(logoPath).toString('base64')}`
+  : null;
 
-const continuationHeaderInnerHtml = buildEurekaHeaderContinuationInnerHtml();
 const footerInnerHtml = buildEurekaFooterInnerHtml();
+const headerFirstPageHtml = buildEurekaHeaderInnerHtml(logoDataUri);
+const headerContinuationHtml = buildEurekaHeaderInnerHtml();
 
-const buildFullHtml = (contentStyles) => {
-  let html = identitySource.replace('<!-- Document content goes here -->', bodyHtml);
-  html = html.replace('src="euk-logo-horizontal.png"', `src="${logoDataUri}"`);
-  html = html.replace('<!-- continuation header inner html goes here -->', continuationHeaderInnerHtml);
-  html = html.replace('<!-- footer inner html goes here -->', footerInnerHtml);
-  html = html.replace('</head>', contentStyles + '\n</head>');
+const fixedHeaderCss = `<style>header.header { position: fixed !important; top: 0; left: 0; right: 0; height: ${headerHeightPx}px; overflow: hidden; z-index: 10; }</style>`;
+
+const buildFullHtml = (contentStyles, headerHtml, fixedHeader = false) => {
+  let html = identitySource.replace('<!-- document-content -->', bodyHtml);
+  html = html.replace('<!-- header-content -->', headerHtml);
+  html = html.replace('<!-- footer-content -->', footerInnerHtml);
+  html = html.replace('</head>', contentStyles + (fixedHeader ? fixedHeaderCss : '') + '\n</head>');
   return html;
 };
 
@@ -81,7 +83,7 @@ const browser = await puppeteer.launch({
 const page = await browser.newPage();
 
 try {
-  await page.setContent(buildFullHtml(buildContinuationContentStyles()), {
+  await page.setContent(buildFullHtml(buildPageContentStyles(), headerFirstPageHtml), {
     waitUntil: 'load',
   });
   const countBuffer = await page.pdf(basePdfOptions);
@@ -89,13 +91,13 @@ try {
   const pageCount = countDoc.getPageCount();
 
   if (pageCount === 1) {
-    await page.setContent(buildFullHtml(buildFirstPageContentStyles()), {
+    await page.setContent(buildFullHtml(buildPageContentStyles(), headerFirstPageHtml), {
       waitUntil: 'load',
     });
     const singleBuffer = await page.pdf(basePdfOptions);
     writeFileSync(outputPdf, singleBuffer);
   } else {
-    await page.setContent(buildFullHtml(buildFirstPageContentStyles()), {
+    await page.setContent(buildFullHtml(buildPageContentStyles(), headerFirstPageHtml), {
       waitUntil: 'load',
     });
     const page1Buffer = await page.pdf({
@@ -103,7 +105,7 @@ try {
       pageRanges: '1',
     });
 
-    await page.setContent(buildFullHtml(buildContinuationContentStyles()), {
+    await page.setContent(buildFullHtml(buildPageContentStyles(), headerContinuationHtml, true), {
       waitUntil: 'load',
     });
     const restBuffer = await page.pdf({

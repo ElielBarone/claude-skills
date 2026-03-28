@@ -1,7 +1,7 @@
 import { contentHorizontalPaddingPx, contentTopPaddingPx, contentBottomPaddingPx, headerHeightPx, footerHeightPx } from './eureka-document-config.mjs';
 import {
   a4PageWidthPx,
-  tileHeightPx,
+  a4PageHeightPx,
   buildGreyBackgroundUri,
   buildYellowBackgroundUri,
   buildHeaderGreySvgUri,
@@ -127,7 +127,7 @@ ${buildBaseLayoutStyles()}
     background-attachment: scroll, scroll;
     background-repeat: repeat-y, repeat-y;
     background-position: 0 0, 0 0;
-    background-size: ${a4PageWidthPx}px ${tileHeightPx}px, ${a4PageWidthPx}px ${tileHeightPx}px;
+    background-size: ${a4PageWidthPx}px ${a4PageHeightPx}px, ${a4PageWidthPx}px ${a4PageHeightPx}px;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
@@ -150,7 +150,7 @@ ${buildBaseLayoutStyles()}
     background-attachment: scroll, scroll;
     background-repeat: repeat-y, repeat-y;
     background-position: 0 0, 0 0;
-    background-size: ${a4PageWidthPx}px ${tileHeightPx}px, ${a4PageWidthPx}px ${tileHeightPx}px;
+    background-size: ${a4PageWidthPx}px ${a4PageHeightPx}px, ${a4PageWidthPx}px ${a4PageHeightPx}px;
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }

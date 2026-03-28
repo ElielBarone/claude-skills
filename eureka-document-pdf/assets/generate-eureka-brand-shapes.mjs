@@ -11,7 +11,7 @@ export const chromiumTemplateBodyMarginPx = 8;
 export const tileHeightPx = a4PageHeightPx - headerHeightPx - footerHeightPx;
 
 export const greyTileTransform = 'rotate(45 694 -300) translate(294 -700) scale(33.333)';
-const yellowTileTransform = `rotate(45 0 ${tileHeightPx + 400}) translate(-400 ${tileHeightPx}) scale(33.333)`;
+const yellowTileTransform = `rotate(45 0 ${a4PageHeightPx + 400}) translate(-400 ${a4PageHeightPx}) scale(33.333)`;
 export const footerBlobTransform = `translate(${a4PageWidthPx - 60} ${footerHeightPx - 60}) scale(5)`;
 export const footerBlobLeftTransform = `translate(-60 ${footerHeightPx - 60}) scale(5)`;
 
@@ -25,7 +25,7 @@ export const buildPageSvg = (fill, transform, height = tileHeightPx) =>
   `<svg xmlns="http://www.w3.org/2000/svg" width="${a4PageWidthPx}" height="${height}"><g transform="${transform}"><path fill="${fill}" d="${brandDecorationPath}"/></g></svg>`;
 
 export const buildGreyBackgroundUri = () =>
-  `data:image/svg+xml,${encodeURIComponent(buildPageSvg('#EFEFEF', greyTileTransform))}`;
+  `data:image/svg+xml,${encodeURIComponent(buildPageSvg('#EFEFEF', greyTileTransform, a4PageHeightPx))}`;
 
 export const buildYellowBackgroundUri = () =>
-  `data:image/svg+xml,${encodeURIComponent(buildPageSvg('#f5a623', yellowTileTransform))}`;
+  `data:image/svg+xml,${encodeURIComponent(buildPageSvg('#f5a623', yellowTileTransform, a4PageHeightPx))}`;

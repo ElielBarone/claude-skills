@@ -1,0 +1,63 @@
+<!-- Layout template generated from: capa-topico.png — do not edit manually -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920">
+  <title>Layout Template — capa-topico</title>
+  <style>
+    @font-face { font-family: 'Montserrat-Bold'; src: url('../fonts/Montserrat-Bold.ttf') format('truetype'); font-weight: 700; }
+    @font-face { font-family: 'Montserrat-Regular'; src: url('../fonts/Montserrat-Regular.ttf') format('truetype'); font-weight: 400; }
+    :root {
+      --color-primary: #FFCC29;
+      --color-primary-dark: #ECB236;
+      --color-secondary: #4E5A62;
+      --color-secondary-dark: #2A3E49;
+      --color-text: #2A3E49;
+      --color-text-muted: #4E5A62;
+      --font-title: 'Montserrat-Bold', sans-serif;
+      --font-body: 'Montserrat-Regular', sans-serif;
+      --slide-padding: 80px;
+      --element-gap: 24px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { margin: 0; padding: 0; overflow: hidden; background: #f0f0f0; }
+    .slide {
+      width: 1920px; height: 1080px; overflow: hidden; position: relative;
+      display: flex; font-family: var(--font-body); color: var(--color-text);
+    }
+  </style>
+</head>
+<body>
+  <div class="slide" aria-description="Split layout: illustration/photo panel left 55%, white content panel right 45%, large yellow circle accent bottom-left">
+    <!-- LEFT PANEL: dark background with illustration/photo -->
+    <div aria-label="illustration zone — left panel 55% width"
+         data-ai-edit="image"
+         style="width:55%; height:1080px; background: var(--color-secondary-dark); position: relative; overflow: hidden; display:flex; align-items:center; justify-content:center;">
+      <!-- Yellow circle accent bottom-left -->
+      <div style="position:absolute; bottom:-180px; left:-180px; width:480px; height:480px; border-radius:50%; background:var(--color-primary); opacity:0.9;"></div>
+      <!-- [ILLUSTRATION] -->
+      <p style="color:rgba(255,255,255,0.3); font-size:32px; font-family:var(--font-body); z-index:1;">[ILLUSTRATION]</p>
+    </div>
+    <!-- RIGHT PANEL: white content -->
+    <div aria-label="content panel — right 45% width"
+         style="width:45%; height:1080px; background:white; padding: var(--slide-padding); display:flex; flex-direction:column; justify-content:center; gap: var(--element-gap);">
+      <div data-ai-edit="logo" aria-label="brand logo — top of content panel" style="width:200px; margin-bottom: 16px;">
+        [LOGO]
+      </div>
+      <h1 data-ai-edit="title" aria-label="main slide title"
+          style="font-family: var(--font-title); font-size:64px; font-weight:700; color:var(--color-text); line-height:1.15;">
+        [SLIDE TITLE]
+      </h1>
+      <p data-ai-edit="body" aria-label="primary body paragraph"
+         style="font-family:var(--font-body); font-size:28px; color:var(--color-text); line-height:1.6;">
+        [BODY TEXT — max 30 words]
+      </p>
+      <p data-ai-edit="body" aria-label="secondary body paragraph"
+         style="font-family:var(--font-body); font-size:24px; color:var(--color-text-muted); line-height:1.6;">
+        [SECONDARY TEXT — max 20 words]
+      </p>
+    </div>
+  </div>
+</body>
+</html>

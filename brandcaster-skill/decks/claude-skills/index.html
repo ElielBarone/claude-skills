@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Claude Skills — Slides</title>
+  <style>
+    body { font-family: sans-serif; background: #1a1a1a; color: white; margin: 0; padding: 40px; }
+    h1 { font-size: 32px; margin-bottom: 8px; color: #FFCC29; }
+    p.subtitle { font-size: 16px; color: #888; margin-bottom: 40px; }
+    .grid { display: grid; grid-template-columns: repeat(auto-fill, 192px); gap: 32px; }
+    .thumb { width: 192px; }
+    .thumb-frame { width: 192px; height: 108px; overflow: hidden; border-radius: 8px; border: 2px solid #333; background: #111; }
+    .thumb-frame iframe {
+      width: 1920px; height: 1080px;
+      transform: scale(0.1); transform-origin: top left;
+      pointer-events: none; border: none;
+    }
+    .thumb a { display: block; margin-top: 10px; font-size: 13px; color: #FFCC29; text-decoration: none; line-height: 1.4; }
+    .thumb a:hover { text-decoration: underline; }
+    .thumb .slide-num { font-size: 11px; color: #555; margin-top: 4px; }
+  </style>
+</head>
+<body>
+  <h1>Claude Skills</h1>
+  <p class="subtitle">4 slides · Open any slide at 1920×1080 for full-size viewing</p>
+  <div class="grid">
+    <div class="thumb">
+      <div class="thumb-frame">
+        <iframe src="slide-01.html" scrolling="no"></iframe>
+      </div>
+      <a href="slide-01.html">The Future of AI-Powered Commands</a>
+      <div class="slide-num">01 — Cover</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-frame">
+        <iframe src="slide-02.html" scrolling="no"></iframe>
+      </div>
+      <a href="slide-02.html">Why Claude Skills Win</a>
+      <div class="slide-num">02 — Skills vs. Cursor Commands</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-frame">
+        <iframe src="slide-03.html" scrolling="no"></iframe>
+      </div>
+      <a href="slide-03.html">Combining Skills into Powerful Pipelines</a>
+      <div class="slide-num">03 — Pipeline Composition</div>
+    </div>
+    <div class="thumb">
+      <div class="thumb-frame">
+        <iframe src="slide-04.html" scrolling="no"></iframe>
+      </div>
+      <a href="slide-04.html">The Compounding Power of a Skills Ecosystem</a>
+      <div class="slide-num">04 — The Skills Ecosystem</div>
+    </div>
+  </div>
+</body>
+</html>

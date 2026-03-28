@@ -1,0 +1,101 @@
+<!-- layout based on: tópicos-cards.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920">
+  <title>Slide 04 — The Compounding Power of a Skills Ecosystem</title>
+  <style>
+    @font-face { font-family: 'Montserrat-Bold'; src: url('../../brand-identity/fonts/Montserrat-Bold.ttf') format('truetype'); font-weight: 700; }
+    @font-face { font-family: 'Montserrat-Regular'; src: url('../../brand-identity/fonts/Montserrat-Regular.ttf') format('truetype'); font-weight: 400; }
+    :root {
+      --color-primary: #FFCC29;
+      --color-primary-dark: #ECB236;
+      --color-secondary: #4E5A62;
+      --color-secondary-dark: #2A3E49;
+      --color-text: #2A3E49;
+      --color-text-muted: #4E5A62;
+      --font-title: 'Montserrat-Bold', sans-serif;
+      --font-body: 'Montserrat-Regular', sans-serif;
+      --slide-padding: 80px;
+      --element-gap: 24px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { margin: 0; padding: 0; overflow: hidden; background: #f0f0f0; }
+    .slide {
+      width: 1920px; height: 1080px; overflow: hidden; position: relative;
+      font-family: var(--font-body); color: var(--color-text);
+      background: var(--color-primary);
+      border-radius: 0;
+      padding: var(--slide-padding);
+      display: flex; flex-direction: column; gap: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <!-- TITLE -->
+    <h1 data-ai-edit="title"
+        style="font-family:var(--font-body); font-size:70px; font-weight:400; color:var(--color-text); line-height:1.1;">
+      The <strong style="font-family:var(--font-title); font-weight:700;">Compounding Power</strong> of a Skills Ecosystem
+    </h1>
+
+    <!-- 2x2 CARD GRID -->
+    <div style="display:grid; grid-template-columns:1fr 1fr; gap:var(--element-gap); flex:1;">
+
+      <!-- Card 1: Multiplier Effect (crown icon) -->
+      <div style="background:white; border-radius:20px; padding:44px 52px; display:flex; align-items:flex-start; gap:40px;">
+        <div data-ai-edit="icon" style="width:64px; height:64px; flex-shrink:0; color:var(--color-text);">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:64px; height:64px;">
+            <path d="M4 8L6 20H18L20 8M4 8L5.71624 9.37299C6.83218 10.2657 7.39014 10.7121 7.95256 10.7814C8.4453 10.8421 8.94299 10.7173 9.34885 10.4314C9.81211 10.1051 10.0936 9.4483 10.6565 8.13476L12 5M4 8C4.55228 8 5 7.55228 5 7C5 6.44772 4.55228 6 4 6C3.44772 6 3 6.44772 3 7C3 7.55228 3.44772 8 4 8ZM20 8L18.2838 9.373C17.1678 10.2657 16.6099 10.7121 16.0474 10.7814C15.5547 10.8421 15.057 10.7173 14.6511 10.4314C14.1879 10.1051 13.9064 9.4483 13.3435 8.13476L12 5M20 8C20.5523 8 21 7.55228 21 7C21 6.44772 20.5523 6 20 6C19.4477 6 19 6.44772 19 7C19 7.55228 19.4477 8 20 8ZM12 5C12.5523 5 13 4.55228 13 4C13 3.44772 12.5523 3 12 3C11.4477 3 11 3.44772 11 4C11 4.55228 11.4477 5 12 5Z" stroke="#2A3E49" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h3 style="font-family:var(--font-title); font-size:34px; font-weight:700; color:var(--color-text); margin-bottom:14px;">Multiplier Effect</h3>
+          <p data-ai-edit="body" style="font-size:26px; color:var(--color-text-muted); line-height:1.5;">Every skill you add amplifies the value of all existing ones — the ecosystem compounds.</p>
+        </div>
+      </div>
+
+      <!-- Card 2: Institutional Knowledge (user icon) -->
+      <div style="background:white; border-radius:20px; padding:44px 52px; display:flex; align-items:flex-start; gap:40px;">
+        <div data-ai-edit="icon" style="width:64px; height:64px; flex-shrink:0; color:var(--color-text);">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:64px; height:64px;">
+            <path d="M5 21C5 17.134 8.13401 14 12 14C15.866 14 19 17.134 19 21M16 7C16 9.20914 14.2091 11 12 11C9.79086 11 8 9.20914 8 7C8 4.79086 9.79086 3 12 3C14.2091 3 16 4.79086 16 7Z" stroke="#2A3E49" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h3 style="font-family:var(--font-title); font-size:34px; font-weight:700; color:var(--color-text); margin-bottom:14px;">Institutional Knowledge</h3>
+          <p data-ai-edit="body" style="font-size:26px; color:var(--color-text-muted); line-height:1.5;">Skills encode your team's conventions and patterns — onboarding becomes instant.</p>
+        </div>
+      </div>
+
+      <!-- Card 3: Scales From Simple to Agentic (hourglass icon) -->
+      <div style="background:white; border-radius:20px; padding:44px 52px; display:flex; align-items:flex-start; gap:40px;">
+        <div data-ai-edit="icon" style="width:64px; height:64px; flex-shrink:0; color:var(--color-text);">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:64px; height:64px;">
+            <path d="M20 3H4M20 21H4M5 3C5 5.51022 6.21228 7.86592 8.25493 9.32495L15.7451 14.675C17.7877 16.1341 19 18.4898 19 21M19 3C19 5.51022 17.7877 7.86592 15.7451 9.32495L8.25493 14.675C6.21228 16.1341 5 18.4898 5 21" stroke="#2A3E49" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h3 style="font-family:var(--font-title); font-size:34px; font-weight:700; color:var(--color-text); margin-bottom:14px;">Scales From Simple to Agentic</h3>
+          <p data-ai-edit="body" style="font-size:26px; color:var(--color-text-muted); line-height:1.5;">One-liner commands grow into full agentic pipelines — the architecture scales with you.</p>
+        </div>
+      </div>
+
+      <!-- Card 4: Your Stack, Your Rules (flag icon) -->
+      <div style="background:white; border-radius:20px; padding:44px 52px; display:flex; align-items:flex-start; gap:40px;">
+        <div data-ai-edit="icon" style="width:64px; height:64px; flex-shrink:0; color:var(--color-text);">
+          <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:64px; height:64px;">
+            <path d="M5 21V3.90002C5 3.90002 5.875 3 8.5 3C11.125 3 12.875 4.8 15.5 4.8C18.125 4.8 19 3.9 19 3.9V14.7C19 14.7 18.125 15.6 15.5 15.6C12.875 15.6 11.125 13.8 8.5 13.8C5.875 13.8 5 14.7 5 14.7" stroke="#2A3E49" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+          </svg>
+        </div>
+        <div>
+          <h3 style="font-family:var(--font-title); font-size:34px; font-weight:700; color:var(--color-text); margin-bottom:14px;">Your Stack, Your Rules</h3>
+          <p data-ai-edit="body" style="font-size:26px; color:var(--color-text-muted); line-height:1.5;">Build a shared library tailored to your team's stack — start small, compose big.</p>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</body>
+</html>

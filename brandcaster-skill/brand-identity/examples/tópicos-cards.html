@@ -1,0 +1,76 @@
+<!-- Layout template generated from: tópicos-cards.png — do not edit manually -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920">
+  <title>Layout Template — tópicos-cards</title>
+  <style>
+    @font-face { font-family: 'Montserrat-Bold'; src: url('../fonts/Montserrat-Bold.ttf') format('truetype'); font-weight: 700; }
+    @font-face { font-family: 'Montserrat-Regular'; src: url('../fonts/Montserrat-Regular.ttf') format('truetype'); font-weight: 400; }
+    :root {
+      --color-primary: #FFCC29;
+      --color-primary-dark: #ECB236;
+      --color-secondary: #4E5A62;
+      --color-secondary-dark: #2A3E49;
+      --color-text: #2A3E49;
+      --color-text-muted: #4E5A62;
+      --font-title: 'Montserrat-Bold', sans-serif;
+      --font-body: 'Montserrat-Regular', sans-serif;
+      --slide-padding: 80px;
+      --element-gap: 24px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { margin: 0; padding: 0; overflow: hidden; background: #f0f0f0; }
+    .slide {
+      width: 1920px; height: 1080px; overflow: hidden; position: relative;
+      font-family: var(--font-body); color: var(--color-text);
+      background: var(--color-primary);
+      border-radius: 48px;
+      padding: var(--slide-padding);
+      display: flex; flex-direction: column; gap: 40px;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide" aria-description="Yellow background with large mixed-weight title at top and 2x2 white card grid below; each card has outline icon left and title+description right">
+    <!-- TITLE -->
+    <h1 data-ai-edit="title" aria-label="main slide title"
+        style="font-family:var(--font-body); font-size:72px; font-weight:400; color:var(--color-text);">
+      <strong style="font-family:var(--font-title); font-weight:700;">[TITLE BOLD PART]</strong> [TITLE REGULAR PART]
+    </h1>
+    <!-- 2x2 CARD GRID -->
+    <div aria-label="2x2 feature card grid" style="display:grid; grid-template-columns:1fr 1fr; gap:var(--element-gap); flex:1;">
+      <!-- Card: icon left, title+body right -->
+      <div style="background:white; border-radius:20px; padding:40px 48px; display:flex; align-items:flex-start; gap:36px;">
+        <div data-ai-edit="icon" aria-label="card icon — top-left card" style="width:64px; height:64px; flex-shrink:0; color:var(--color-text);">[ICON]</div>
+        <div>
+          <h3 style="font-family:var(--font-title); font-size:32px; font-weight:700; color:var(--color-text); margin-bottom:12px;">[CARD TITLE]</h3>
+          <p data-ai-edit="body" style="font-size:26px; color:var(--color-text-muted); line-height:1.5;">[CARD BODY — max 20 words]</p>
+        </div>
+      </div>
+      <div style="background:white; border-radius:20px; padding:40px 48px; display:flex; align-items:flex-start; gap:36px;">
+        <div data-ai-edit="icon" aria-label="card icon — top-right card" style="width:64px; height:64px; flex-shrink:0; color:var(--color-text);">[ICON]</div>
+        <div>
+          <h3 style="font-family:var(--font-title); font-size:32px; font-weight:700; color:var(--color-text); margin-bottom:12px;">[CARD TITLE]</h3>
+          <p data-ai-edit="body" style="font-size:26px; color:var(--color-text-muted); line-height:1.5;">[CARD BODY — max 20 words]</p>
+        </div>
+      </div>
+      <div style="background:white; border-radius:20px; padding:40px 48px; display:flex; align-items:flex-start; gap:36px;">
+        <div data-ai-edit="icon" aria-label="card icon — bottom-left card" style="width:64px; height:64px; flex-shrink:0; color:var(--color-text);">[ICON]</div>
+        <div>
+          <h3 style="font-family:var(--font-title); font-size:32px; font-weight:700; color:var(--color-text); margin-bottom:12px;">[CARD TITLE]</h3>
+          <p data-ai-edit="body" style="font-size:26px; color:var(--color-text-muted); line-height:1.5;">[CARD BODY — max 20 words]</p>
+        </div>
+      </div>
+      <div style="background:white; border-radius:20px; padding:40px 48px; display:flex; align-items:flex-start; gap:36px;">
+        <div data-ai-edit="icon" aria-label="card icon — bottom-right card" style="width:64px; height:64px; flex-shrink:0; color:var(--color-text);">[ICON]</div>
+        <div>
+          <h3 style="font-family:var(--font-title); font-size:32px; font-weight:700; color:var(--color-text); margin-bottom:12px;">[CARD TITLE]</h3>
+          <p data-ai-edit="body" style="font-size:26px; color:var(--color-text-muted); line-height:1.5;">[CARD BODY — max 20 words]</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

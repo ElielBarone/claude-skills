@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920">
+  <title>Slide 03 — Claude: Key Strengths</title>
+  <style>
+    @font-face { font-family: 'Montserrat'; src: url('../../brand-identity/fonts/Montserrat-Bold.ttf') format('truetype'); font-weight: 700; }
+    @font-face { font-family: 'Montserrat'; src: url('../../brand-identity/fonts/Montserrat-Regular.ttf') format('truetype'); font-weight: 400; }
+    :root {
+      --color-primary: #FFCC29; --color-primary-dark: #ECB236;
+      --color-secondary: #4E5A62; --color-secondary-dark: #2A3E49;
+      --font-title: 'Montserrat', sans-serif; --font-body: 'Montserrat', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { margin: 0; overflow: hidden; background: #f0f0f0; }
+    .slide { width: 1920px; height: 1080px; overflow: hidden; position: relative; font-family: var(--font-body); background: var(--color-primary); border-radius: 0; }
+    .card { background: white; border-radius: 20px; padding: 48px 44px; display: flex; flex-direction: column; gap: 20px; }
+    .card-icon { width: 64px; height: 64px; color: var(--color-secondary-dark); }
+    .card-icon svg { width: 100%; height: 100%; }
+    .card-title { font-family: var(--font-title); font-size: 28px; font-weight: 700; color: var(--color-secondary-dark); }
+    .card-body { font-size: 22px; color: var(--color-secondary); line-height: 1.55; }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <!-- Header -->
+    <div style="padding:64px 80px 40px;display:flex;align-items:baseline;gap:16px;">
+      <h1 data-ai-edit="title" style="font-family:var(--font-title);font-size:60px;font-weight:700;color:var(--color-secondary-dark);">Claude: <span style="font-weight:400;">Key Strengths</span></h1>
+    </div>
+
+    <!-- 2×2 Card Grid -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;padding:0 80px 64px;">
+
+      <!-- Card 1: Versatility -->
+      <div class="card" data-ai-edit="card1">
+        <div class="card-icon">
+          <!-- palette icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M15.5 8.5H15.51M10.5 7.5H10.51M7.5 11.5H7.51M12 21C7.02944 21 3 16.9706 3 12C3 7.02944 7.02944 3 12 3C16.9706 3 21 7.02944 21 12C21 13.6569 19.6569 15 18 15H17.4C17.0284 15 16.8426 15 16.6871 15.0246C15.8313 15.1602 15.1602 15.8313 15.0246 16.6871C15 16.8426 15 17.0284 15 17.4V18C15 19.6569 13.6569 21 12 21ZM16 8.5C16 8.77614 15.7761 9 15.5 9C15.2239 9 15 8.77614 15 8.5C15 8.22386 15.2239 8 15.5 8C15.7761 8 16 8.22386 16 8.5ZM11 7.5C11 7.77614 10.7761 8 10.5 8C10.2239 8 10 7.77614 10 7.5C10 7.22386 10.2239 7 10.5 7C10.7761 7 11 7.22386 11 7.5ZM8 11.5C8 11.7761 7.77614 12 7.5 12C7.22386 12 7 11.7761 7 11.5C7 11.2239 7.22386 11 7.5 11C7.77614 11 8 11.2239 8 11.5Z"/>
+          </svg>
+        </div>
+        <div class="card-title">Beyond Coding</div>
+        <div class="card-body">Writing, analysis, research, and code — one model for every task in your workflow, not just your editor.</div>
+      </div>
+
+      <!-- Card 2: API & CLI -->
+      <div class="card" data-ai-edit="card2">
+        <div class="card-icon">
+          <!-- fingerprint icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M13.1427 20.9999C10.8077 19.5438 9.25254 16.9522 9.25254 13.9968C9.25254 12.4783 10.4833 11.2476 12.0008 11.2476C13.5184 11.2476 14.7491 12.4783 14.7491 13.9968C14.7491 15.5153 15.9798 16.746 17.4974 16.746C19.0149 16.746 20.2457 15.5153 20.2457 13.9968C20.2457 9.44139 16.5544 5.74922 12.0017 5.74922C7.44907 5.74922 3.75781 9.44139 3.75781 13.9968C3.75781 15.0122 3.87145 16.001 4.08038 16.954M8.49027 20.2989C7.23938 18.5138 6.50351 16.3419 6.50351 13.9968C6.50351 10.9599 8.96405 8.49844 11.9992 8.49844C15.0343 8.49844 17.4948 10.9599 17.4948 13.9968M17.7927 19.4806C17.6937 19.4861 17.5966 19.4953 17.4967 19.4953C14.4616 19.4953 12.0011 17.0338 12.0011 13.9969M19.6734 6.47682C17.7993 4.34802 15.0593 3 12.0004 3C8.94141 3 6.20138 4.34802 4.32734 6.47682"/>
+          </svg>
+        </div>
+        <div class="card-title">Powerful API &amp; Claude Code</div>
+        <div class="card-body">Build custom automations via API, or run Claude Code CLI to handle entire tasks autonomously in your terminal.</div>
+      </div>
+
+      <!-- Card 3: Reasoning -->
+      <div class="card" data-ai-edit="card3">
+        <div class="card-icon">
+          <!-- crown icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 8L6 20H18L20 8M4 8L5.71624 9.37299C6.83218 10.2657 7.39014 10.7121 7.95256 10.7814C8.4453 10.8421 8.94299 10.7173 9.34885 10.4314C9.81211 10.1051 10.0936 9.4483 10.6565 8.13476L12 5M4 8C4.55228 8 5 7.55228 5 7C5 6.44772 4.55228 6 4 6C3.44772 6 3 6.44772 3 7C3 7.55228 3.44772 8 4 8ZM20 8L18.2838 9.373C17.1678 10.2657 16.6099 10.7121 16.0474 10.7814C15.5547 10.8421 15.057 10.7173 14.6511 10.4314C14.1879 10.1051 13.9064 9.4483 13.3435 8.13476L12 5M20 8C20.5523 8 21 7.55228 21 7C21 6.44772 20.5523 6 20 6C19.4477 6 19 6.44772 19 7C19 7.55228 19.4477 8 20 8ZM12 5C12.5523 5 13 4.55228 13 4C13 3.44772 12.5523 3 12 3C11.4477 3 11 3.44772 11 4C11 4.55228 11.4477 5 12 5Z"/>
+          </svg>
+        </div>
+        <div class="card-title">Best-in-Class Reasoning</div>
+        <div class="card-body">Claude consistently tops benchmarks for complex reasoning, long-context tasks, and nuanced instruction following.</div>
+      </div>
+
+      <!-- Card 4: No Lock-in -->
+      <div class="card" data-ai-edit="card4">
+        <div class="card-icon">
+          <!-- umbrella icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M8 19C8 20.1046 8.89543 21 10 21C11.1046 21 12 20.1046 12 19V11M12 11C13.1256 11 14.1643 11.3719 15 11.9996C15.8357 11.3719 16.8744 11 18 11C19.1258 11 20.1643 11.3721 21 12C21 7.02944 16.9706 3 12 3C7.02944 3 3 7.02944 3 12C3.83566 11.3723 4.87439 11 6 11C7.12561 11 8.16434 11.3719 9 11.9996C9.83566 11.3719 10.8744 11 12 11Z"/>
+          </svg>
+        </div>
+        <div class="card-title">No IDE Lock-in</div>
+        <div class="card-body">Works with VS Code, JetBrains, Neovim, or any editor. Switch tools freely — your AI stays with you.</div>
+      </div>
+
+    </div>
+
+    <!-- Logo -->
+    <div data-ai-edit="logo" style="position:absolute;bottom:40px;right:60px;width:140px;">
+      <svg viewBox="0 0 163.23845 50.792717" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(-10.463734,-95.84864)">
+          <path style="fill:#ECB236;" d="m 173.70219,95.848641 a 25.39641,25.39641 0 0 0 -25.39636,25.396349 25.39641,25.39641 0 0 0 25.39636,25.39637 v -13.21791 a 12.178395,12.178395 0 0 1 -12.17846,-12.17846 12.178395,12.178395 0 0 1 12.17846,-12.17845 z m -38.1126,0.66683 h 13.21791 a 25.39641,25.39641 0 0 1 -25.39636,25.396359 v -13.2179 a 12.178395,12.178395 0 0 0 12.17845,-12.178459 z"/>
+          <text style="font-weight:900;font-size:21.1667px;font-family:Montserrat;fill:#2A3E49;" x="8.5375729" y="140.61708"><tspan style="font-weight:500;">brand</tspan>caster</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

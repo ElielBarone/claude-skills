@@ -1,0 +1,7 @@
+{
+  "name": "brandcaster",
+  "description": "Generates branded HTML presentation slides from text, images, or documents using a local brand identity pack.",
+  "author": {
+    "name": "eureka"
+  }
+}

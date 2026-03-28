@@ -1,0 +1,90 @@
+<!-- Layout template generated from: pipeline-próximos-passos.png — do not edit manually -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920">
+  <title>Layout Template — pipeline-próximos-passos</title>
+  <style>
+    @font-face { font-family: 'Montserrat-Bold'; src: url('../fonts/Montserrat-Bold.ttf') format('truetype'); font-weight: 700; }
+    @font-face { font-family: 'Montserrat-Regular'; src: url('../fonts/Montserrat-Regular.ttf') format('truetype'); font-weight: 400; }
+    :root {
+      --color-primary: #FFCC29;
+      --color-primary-dark: #ECB236;
+      --color-secondary: #4E5A62;
+      --color-secondary-dark: #2A3E49;
+      --color-text: #2A3E49;
+      --color-text-muted: #4E5A62;
+      --font-title: 'Montserrat-Bold', sans-serif;
+      --font-body: 'Montserrat-Regular', sans-serif;
+      --slide-padding: 80px;
+      --element-gap: 24px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { margin: 0; padding: 0; overflow: hidden; background: #f0f0f0; }
+    .slide {
+      width: 1920px; height: 1080px; overflow: hidden; position: relative;
+      font-family: var(--font-body); color: var(--color-text);
+      background: white;
+      padding: var(--slide-padding);
+      display: flex; flex-direction: column;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide" aria-description="White background: split header (title+desc left, illustration right), horizontal pipeline nodes center, footnote area bottom">
+    <!-- HEADER ROW -->
+    <div style="display:flex; gap:64px; margin-bottom: 48px;">
+      <!-- Title + description left -->
+      <div style="flex:1; display:flex; flex-direction:column; gap: var(--element-gap); justify-content:center;">
+        <h1 data-ai-edit="title" aria-label="main slide title"
+            style="font-family:var(--font-title); font-size:72px; font-weight:700; color:var(--color-text); line-height:1.1;">
+          [SLIDE TITLE]
+        </h1>
+        <p data-ai-edit="body" aria-label="description paragraph"
+           style="font-size:28px; color:var(--color-text-muted); line-height:1.5; max-width:700px;">
+          [DESCRIPTION — max 30 words]
+        </p>
+      </div>
+      <!-- Illustration right -->
+      <div data-ai-edit="image" aria-label="illustration zone — top right"
+           style="width:480px; height:280px; background:#f0f0f0; border-radius:16px; display:flex; align-items:center; justify-content:center; color:#ccc; font-size:24px; flex-shrink:0;">
+        [ILLUSTRATION]
+      </div>
+    </div>
+    <!-- PIPELINE NODES ROW -->
+    <div aria-label="horizontal pipeline node row — center of slide" style="display:flex; align-items:center; gap:0; background:var(--color-primary); border-radius:20px; padding:32px 48px; margin-bottom:auto;">
+      <!-- Node -->
+      <div style="display:flex; flex-direction:column; align-items:center; text-align:center; flex:1;">
+        <div style="background:white; border-radius:50%; width:120px; height:120px; display:flex; align-items:center; justify-content:center; font-family:var(--font-title); font-size:20px; font-weight:700; color:var(--color-text); text-align:center; padding:8px; margin-bottom:12px;">[NODE 1]</div>
+      </div>
+      <div style="width:40px; height:3px; background:var(--color-secondary-dark);"></div>
+      <div style="display:flex; flex-direction:column; align-items:center; text-align:center; flex:1;">
+        <div style="background:white; border-radius:50%; width:120px; height:120px; display:flex; align-items:center; justify-content:center; font-family:var(--font-title); font-size:20px; font-weight:700; color:var(--color-text); text-align:center; padding:8px; margin-bottom:12px;">[NODE 2]</div>
+      </div>
+      <div style="width:40px; height:3px; background:var(--color-secondary-dark);"></div>
+      <div style="display:flex; flex-direction:column; align-items:center; text-align:center; flex:1;">
+        <div style="background:white; border-radius:50%; width:120px; height:120px; display:flex; align-items:center; justify-content:center; font-family:var(--font-title); font-size:20px; font-weight:700; color:var(--color-text); text-align:center; padding:8px; margin-bottom:12px;">[NODE 3]</div>
+      </div>
+      <div style="width:40px; height:3px; background:var(--color-secondary-dark);"></div>
+      <div style="display:flex; flex-direction:column; align-items:center; text-align:center; flex:1;">
+        <div style="background:white; border-radius:50%; width:120px; height:120px; display:flex; align-items:center; justify-content:center; font-family:var(--font-title); font-size:20px; font-weight:700; color:var(--color-text); text-align:center; padding:8px; margin-bottom:12px;">[NODE 4]</div>
+      </div>
+      <div style="width:40px; height:3px; background:var(--color-secondary-dark);"></div>
+      <div style="display:flex; flex-direction:column; align-items:center; text-align:center; flex:1;">
+        <div style="background:white; border-radius:50%; width:120px; height:120px; display:flex; align-items:center; justify-content:center; font-family:var(--font-title); font-size:20px; font-weight:700; color:var(--color-text); text-align:center; padding:8px; margin-bottom:12px;">[NODE 5]</div>
+      </div>
+    </div>
+    <!-- FOOTNOTE ROW -->
+    <div style="display:flex; gap:64px; margin-top:32px;">
+      <div data-ai-edit="body" aria-label="warning or note — bottom left" style="display:flex; align-items:flex-start; gap:16px; flex:1;">
+        <div style="font-size:32px;">⚠️</div>
+        <p style="font-size:22px; color:var(--color-text-muted); line-height:1.4;">[FOOTNOTE NOTE — max 20 words]</p>
+      </div>
+      <div data-ai-edit="body" aria-label="numbered note — bottom right" style="flex:1;">
+        <p style="font-size:22px; color:var(--color-text-muted); line-height:1.4;"><strong>1.</strong> [NUMBERED NOTE — max 20 words]</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

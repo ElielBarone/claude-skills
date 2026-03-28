@@ -1,0 +1,99 @@
+<!-- layout based on: capa-topico.html -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920">
+  <title>Slide 01 — Claude Skills: The Future of AI-Powered Commands</title>
+  <style>
+    @font-face { font-family: 'Montserrat-Bold'; src: url('../../brand-identity/fonts/Montserrat-Bold.ttf') format('truetype'); font-weight: 700; }
+    @font-face { font-family: 'Montserrat-Regular'; src: url('../../brand-identity/fonts/Montserrat-Regular.ttf') format('truetype'); font-weight: 400; }
+    :root {
+      --color-primary: #FFCC29;
+      --color-primary-dark: #ECB236;
+      --color-secondary: #4E5A62;
+      --color-secondary-dark: #2A3E49;
+      --color-text: #2A3E49;
+      --color-text-muted: #4E5A62;
+      --font-title: 'Montserrat-Bold', sans-serif;
+      --font-body: 'Montserrat-Regular', sans-serif;
+      --slide-padding: 80px;
+      --element-gap: 24px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { margin: 0; padding: 0; overflow: hidden; background: #f0f0f0; }
+    .slide {
+      width: 1920px; height: 1080px; overflow: hidden; position: relative;
+      display: flex; font-family: var(--font-body); color: var(--color-text);
+    }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <!-- LEFT PANEL: dark with skill-network SVG illustration -->
+    <div data-ai-edit="image"
+         style="width:55%; height:1080px; background:var(--color-secondary-dark); position:relative; overflow:hidden; display:flex; align-items:center; justify-content:center;">
+      <!-- Yellow circle accent bottom-left -->
+      <div style="position:absolute; bottom:-200px; left:-200px; width:560px; height:560px; border-radius:50%; background:var(--color-primary); opacity:0.85;"></div>
+      <!-- Skill network illustration -->
+      <svg viewBox="0 0 600 500" xmlns="http://www.w3.org/2000/svg" style="width:560px; height:460px; z-index:1; position:relative;">
+        <!-- Connection lines -->
+        <line x1="300" y1="250" x2="150" y2="120" stroke="#FFCC29" stroke-width="2.5" stroke-opacity="0.5"/>
+        <line x1="300" y1="250" x2="450" y2="120" stroke="#FFCC29" stroke-width="2.5" stroke-opacity="0.5"/>
+        <line x1="300" y1="250" x2="100" y2="320" stroke="#FFCC29" stroke-width="2.5" stroke-opacity="0.5"/>
+        <line x1="300" y1="250" x2="500" y2="320" stroke="#FFCC29" stroke-width="2.5" stroke-opacity="0.5"/>
+        <line x1="300" y1="250" x2="300" y2="420" stroke="#FFCC29" stroke-width="2.5" stroke-opacity="0.5"/>
+        <line x1="150" y1="120" x2="450" y2="120" stroke="#FFCC29" stroke-width="1.5" stroke-opacity="0.3"/>
+        <line x1="100" y1="320" x2="300" y2="420" stroke="#FFCC29" stroke-width="1.5" stroke-opacity="0.3"/>
+        <line x1="500" y1="320" x2="300" y2="420" stroke="#FFCC29" stroke-width="1.5" stroke-opacity="0.3"/>
+        <!-- Central node -->
+        <circle cx="300" cy="250" r="52" fill="#FFCC29" opacity="0.95"/>
+        <text x="300" y="244" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#2A3E49">claude</text>
+        <text x="300" y="262" text-anchor="middle" font-family="sans-serif" font-size="13" font-weight="700" fill="#2A3E49">skills</text>
+        <!-- Outer nodes -->
+        <circle cx="150" cy="120" r="38" fill="rgba(255,204,41,0.2)" stroke="#FFCC29" stroke-width="2"/>
+        <text x="150" y="116" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFCC29">/brandcaster</text>
+        <text x="150" y="130" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFCC29"></text>
+        <circle cx="450" cy="120" r="38" fill="rgba(255,204,41,0.2)" stroke="#FFCC29" stroke-width="2"/>
+        <text x="450" y="116" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFCC29">/claude-api</text>
+        <text x="450" y="130" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFCC29"></text>
+        <circle cx="100" cy="320" r="38" fill="rgba(255,204,41,0.2)" stroke="#FFCC29" stroke-width="2"/>
+        <text x="100" y="316" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFCC29">/simplify</text>
+        <text x="100" y="330" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFCC29"></text>
+        <circle cx="500" cy="320" r="38" fill="rgba(255,204,41,0.2)" stroke="#FFCC29" stroke-width="2"/>
+        <text x="500" y="316" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFCC29">/commit</text>
+        <text x="500" y="330" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFCC29"></text>
+        <circle cx="300" cy="420" r="38" fill="rgba(255,204,41,0.2)" stroke="#FFCC29" stroke-width="2"/>
+        <text x="300" y="416" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFCC29">/loop</text>
+        <text x="300" y="430" text-anchor="middle" font-family="sans-serif" font-size="11" fill="#FFCC29"></text>
+      </svg>
+    </div>
+    <!-- RIGHT PANEL: white content -->
+    <div style="width:45%; height:1080px; background:white; padding:var(--slide-padding); display:flex; flex-direction:column; justify-content:center; gap:32px;">
+      <!-- Logo -->
+      <div data-ai-edit="logo" style="width:220px; margin-bottom:8px;">
+        <svg viewBox="0 0 163.23845 50.792717" xmlns="http://www.w3.org/2000/svg" style="width:220px; height:auto;">
+          <g transform="translate(-10.463734,-95.84864)">
+            <path style="fill:#ffcc29;" d="m 173.70219,95.848641 a 25.39641,25.39641 0 0 0 -25.39636,25.396349 25.39641,25.39641 0 0 0 25.39636,25.39637 v -13.21791 a 12.178395,12.178395 0 0 1 -12.17846,-12.17846 12.178395,12.178395 0 0 1 12.17846,-12.17845 z m -38.1126,0.66683 h 13.21791 a 25.39641,25.39641 0 0 1 -25.39636,25.396359 v -13.2179 a 12.178395,12.178395 0 0 0 12.17845,-12.178459 z"/>
+            <text style="font-size:21.1667px;font-family:Montserrat,sans-serif;fill:#4e5a62;" x="8.5375729" y="140.61708">
+              <tspan style="font-weight:500;">brand</tspan><tspan style="font-weight:900;">caster</tspan>
+            </text>
+          </g>
+        </svg>
+      </div>
+      <!-- Title -->
+      <h1 data-ai-edit="title"
+          style="font-family:var(--font-title); font-size:72px; font-weight:700; color:var(--color-text); line-height:1.1;">
+        Claude Skills:<br>The Future of<br>AI-Powered Commands
+      </h1>
+      <!-- Yellow accent bar -->
+      <div style="width:80px; height:6px; background:var(--color-primary); border-radius:3px;"></div>
+      <!-- Tagline -->
+      <p data-ai-edit="body"
+         style="font-family:var(--font-body); font-size:30px; color:var(--color-text-muted); line-height:1.6; max-width:600px;">
+        Composable, context-aware commands<br>that think before they act.
+      </p>
+    </div>
+  </div>
+</body>
+</html>

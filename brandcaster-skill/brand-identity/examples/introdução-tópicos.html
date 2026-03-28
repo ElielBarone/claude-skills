@@ -1,0 +1,80 @@
+<!-- Layout template generated from: introdução-tópicos.png — do not edit manually -->
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920">
+  <title>Layout Template — introdução-tópicos</title>
+  <style>
+    @font-face { font-family: 'Montserrat-Bold'; src: url('../fonts/Montserrat-Bold.ttf') format('truetype'); font-weight: 700; }
+    @font-face { font-family: 'Montserrat-Regular'; src: url('../fonts/Montserrat-Regular.ttf') format('truetype'); font-weight: 400; }
+    :root {
+      --color-primary: #FFCC29;
+      --color-primary-dark: #ECB236;
+      --color-secondary: #4E5A62;
+      --color-secondary-dark: #2A3E49;
+      --color-text: #2A3E49;
+      --color-text-muted: #4E5A62;
+      --font-title: 'Montserrat-Bold', sans-serif;
+      --font-body: 'Montserrat-Regular', sans-serif;
+      --slide-padding: 80px;
+      --element-gap: 24px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { margin: 0; padding: 0; overflow: hidden; background: #f0f0f0; }
+    .slide {
+      width: 1920px; height: 1080px; overflow: hidden; position: relative;
+      font-family: var(--font-body); color: var(--color-text);
+      background: var(--color-primary);
+      padding: var(--slide-padding);
+      display: flex; flex-direction: column; align-items: center;
+      border-radius: 48px;
+    }
+  </style>
+</head>
+<body>
+  <div class="slide" aria-description="Full yellow background with large centered title and subtitle, then 3-column icon card row below">
+    <!-- TITLE AREA -->
+    <div style="text-align:center; margin-bottom: 40px;">
+      <h1 data-ai-edit="title" aria-label="main slide title"
+          style="font-family:var(--font-body); font-size:72px; font-weight:400; color:var(--color-text);">
+        [TITLE REGULAR] <strong style="font-family:var(--font-title); font-weight:700;">[TITLE BOLD PART]</strong>
+      </h1>
+      <p data-ai-edit="body" aria-label="subtitle text"
+         style="font-size:32px; color:var(--color-text-muted); margin-top:16px;">
+        [SUBTITLE — max 15 words]
+      </p>
+    </div>
+    <!-- 3-COLUMN CARD ROW -->
+    <div aria-label="three-column feature card grid" style="display:flex; gap:48px; width:100%; flex:1; align-items:flex-start;">
+      <!-- Card 1 -->
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; text-align:center; gap:var(--element-gap);">
+        <div data-ai-edit="icon" aria-label="feature icon — column 1"
+             style="width:96px; height:96px; background:white; border-radius:20px; display:flex; align-items:center; justify-content:center; padding:18px;">
+          [ICON]
+        </div>
+        <h3 style="font-family:var(--font-title); font-size:32px; font-weight:700; color:var(--color-text);">[CARD 1 TITLE]</h3>
+        <p data-ai-edit="body" style="font-size:26px; color:var(--color-text); line-height:1.5;">[CARD 1 BODY — max 40 words]</p>
+      </div>
+      <!-- Card 2 -->
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; text-align:center; gap:var(--element-gap);">
+        <div data-ai-edit="icon" aria-label="feature icon — column 2"
+             style="width:96px; height:96px; background:white; border-radius:20px; display:flex; align-items:center; justify-content:center; padding:18px;">
+          [ICON]
+        </div>
+        <h3 style="font-family:var(--font-title); font-size:32px; font-weight:700; color:var(--color-text);">[CARD 2 TITLE]</h3>
+        <p data-ai-edit="body" style="font-size:26px; color:var(--color-text); line-height:1.5;">[CARD 2 BODY — max 40 words]</p>
+      </div>
+      <!-- Card 3 -->
+      <div style="flex:1; display:flex; flex-direction:column; align-items:center; text-align:center; gap:var(--element-gap);">
+        <div data-ai-edit="icon" aria-label="feature icon — column 3"
+             style="width:96px; height:96px; background:white; border-radius:20px; display:flex; align-items:center; justify-content:center; padding:18px;">
+          [ICON]
+        </div>
+        <h3 style="font-family:var(--font-title); font-size:32px; font-weight:700; color:var(--color-text);">[CARD 3 TITLE]</h3>
+        <p data-ai-edit="body" style="font-size:26px; color:var(--color-text); line-height:1.5;">[CARD 3 BODY — max 40 words]</p>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

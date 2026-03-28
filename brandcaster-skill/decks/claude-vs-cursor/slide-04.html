@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=1920">
+  <title>Slide 04 — Cursor: Key Strengths</title>
+  <style>
+    @font-face { font-family: 'Montserrat'; src: url('../../brand-identity/fonts/Montserrat-Bold.ttf') format('truetype'); font-weight: 700; }
+    @font-face { font-family: 'Montserrat'; src: url('../../brand-identity/fonts/Montserrat-Regular.ttf') format('truetype'); font-weight: 400; }
+    :root {
+      --color-primary: #FFCC29; --color-primary-dark: #ECB236;
+      --color-secondary: #4E5A62; --color-secondary-dark: #2A3E49;
+      --font-title: 'Montserrat', sans-serif; --font-body: 'Montserrat', sans-serif;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { margin: 0; overflow: hidden; background: #f0f0f0; }
+    .slide { width: 1920px; height: 1080px; overflow: hidden; position: relative; font-family: var(--font-body); background: #f5f6f7; }
+    .card { background: white; border-radius: 20px; padding: 48px 44px; display: flex; flex-direction: column; gap: 20px; border-left: 6px solid var(--color-primary); }
+    .card-icon { width: 64px; height: 64px; color: var(--color-secondary-dark); }
+    .card-icon svg { width: 100%; height: 100%; }
+    .card-title { font-family: var(--font-title); font-size: 28px; font-weight: 700; color: var(--color-secondary-dark); }
+    .card-body { font-size: 22px; color: var(--color-secondary); line-height: 1.55; }
+  </style>
+</head>
+<body>
+  <div class="slide">
+    <!-- Header -->
+    <div style="padding:64px 80px 40px;display:flex;align-items:baseline;gap:16px;">
+      <h1 data-ai-edit="title" style="font-family:var(--font-title);font-size:60px;font-weight:700;color:var(--color-secondary-dark);">Cursor: <span style="font-weight:400;">Key Strengths</span></h1>
+    </div>
+
+    <!-- 2×2 Card Grid -->
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:32px;padding:0 80px 64px;">
+
+      <!-- Card 1: Editor-native -->
+      <div class="card" data-ai-edit="card1">
+        <div class="card-icon">
+          <!-- lock-hashtag icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M16 8.00169L16 7C16 4.79086 14.2091 3 12 3C9.79086 3 8 4.79086 8 7V8.00169M16 8.00169C15.7563 8 15.4907 8 15.2 8H8.8C8.50929 8 8.24373 8 8 8.00169M16 8.00169C17.1649 8.00979 17.8313 8.05658 18.362 8.32698C18.9265 8.6146 19.3854 9.07354 19.673 9.63803C20 10.2798 20 11.1198 20 12.8V16.2C20 17.8802 20 18.7202 19.673 19.362C19.3854 19.9265 18.9265 20.3854 18.362 20.673C17.7202 21 16.8802 21 15.2 21H8.8C7.11984 21 6.27976 21 5.63803 20.673C5.07354 20.3854 4.6146 19.9265 4.32698 19.362C4 18.7202 4 17.8802 4 16.2V12.8C4 11.1198 4 10.2798 4.32698 9.63803C4.6146 9.07354 5.07354 8.6146 5.63803 8.32698C6.16873 8.05658 6.83507 8.00979 8 8.00169M10 11V18M14 11V18M8.5 12.5H15.5M8.5 16.5H15.5"/>
+          </svg>
+        </div>
+        <div class="card-title">Editor-Native Experience</div>
+        <div class="card-body">AI lives directly inside your editor. No context switching — generate, edit, and review code without leaving the IDE.</div>
+      </div>
+
+      <!-- Card 2: Tab Autocomplete -->
+      <div class="card" data-ai-edit="card2">
+        <div class="card-icon">
+          <!-- clock-lines icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5.06152 12C5.55362 8.05369 8.92001 5 12.9996 5C17.4179 5 20.9996 8.58172 20.9996 13C20.9996 17.4183 17.4179 21 12.9996 21H8M13 13V9M11 3H15M3 15H8M5 18H10"/>
+          </svg>
+        </div>
+        <div class="card-title">Intelligent Tab Autocomplete</div>
+        <div class="card-body">Predicts your next edit before you type it. Multi-line suggestions that understand the surrounding code context.</div>
+      </div>
+
+      <!-- Card 3: Codebase Context -->
+      <div class="card" data-ai-edit="card3">
+        <div class="card-icon">
+          <!-- clouds icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M5.38846 12.7023C3.98522 12.1237 3 10.7636 3 9.17807C3 7.42863 4.3 5.8125 6.25 5.5C6.86168 4.0617 8.30934 3 9.9978 3C12.1607 3 13.9285 4.65893 14.05 6.75C14.8721 7.10549 15.5169 7.83126 15.8166 8.69914M5.38846 12.7023C4.50928 13.5938 4 14.7867 4 16.0315C4 18.7755 6.28335 21 9.1 21L16.75 21C19.0972 21 21 19.1279 21 16.8185C21 15.1039 19.951 13.5202 18.45 12.875C18.3457 11.0905 17.3135 9.5483 15.8166 8.69914M5.38846 12.7023C6.11557 11.9651 7.0957 11.4339 8.25 11.25C9.04989 9.3802 10.943 8 13.151 8C14.1227 8 15.0333 8.25474 15.8166 8.69914"/>
+          </svg>
+        </div>
+        <div class="card-title">Whole-Codebase Context</div>
+        <div class="card-body">@codebase lets the AI reason across your entire repo — not just the open file — for more accurate refactors and suggestions.</div>
+      </div>
+
+      <!-- Card 4: Inline Diffs -->
+      <div class="card" data-ai-edit="card4">
+        <div class="card-icon">
+          <!-- bug icon -->
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 19C9.23858 19 7 16.7614 7 14M12 19C14.7614 19 17 16.7614 17 14M12 19V14M7 14V11.8571C7 11.0592 7 10.6602 7.11223 10.3394C7.31326 9.76495 7.76495 9.31326 8.33944 9.11223C8.66019 9 9.05917 9 9.85714 9H14.1429C14.9408 9 15.3398 9 15.6606 9.11223C16.2351 9.31326 16.6867 9.76495 16.8878 10.3394C17 10.6602 17 11.0592 17 11.8571V14M7 14H4M17 14H20M17 10L19.5 7.5M4.5 20.5L8 17M7 10L4.5 7.5M19.5 20.5L16 17M14 6V5C14 3.89543 13.1046 3 12 3C10.8954 3 10 3.89543 10 5V6H14Z"/>
+          </svg>
+        </div>
+        <div class="card-title">Visual Inline Diffs</div>
+        <div class="card-body">Review AI-proposed changes as highlighted diffs directly in your file. Accept or reject hunks with a single keystroke.</div>
+      </div>
+
+    </div>
+
+    <!-- Logo -->
+    <div data-ai-edit="logo" style="position:absolute;bottom:40px;right:60px;width:140px;">
+      <svg viewBox="0 0 163.23845 50.792717" xmlns="http://www.w3.org/2000/svg">
+        <g transform="translate(-10.463734,-95.84864)">
+          <path style="fill:#ffcc29;" d="m 173.70219,95.848641 a 25.39641,25.39641 0 0 0 -25.39636,25.396349 25.39641,25.39641 0 0 0 25.39636,25.39637 v -13.21791 a 12.178395,12.178395 0 0 1 -12.17846,-12.17846 12.178395,12.178395 0 0 1 12.17846,-12.17845 z m -38.1126,0.66683 h 13.21791 a 25.39641,25.39641 0 0 1 -25.39636,25.396359 v -13.2179 a 12.178395,12.178395 0 0 0 12.17845,-12.178459 z"/>
+          <text style="font-weight:900;font-size:21.1667px;font-family:Montserrat;fill:#4e5a62;" x="8.5375729" y="140.61708"><tspan style="font-weight:500;">brand</tspan>caster</text>
+        </g>
+      </svg>
+    </div>
+  </div>
+</body>
+</html>

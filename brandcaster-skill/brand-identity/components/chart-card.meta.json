@@ -1,0 +1,7 @@
+{
+  "component": {
+    "name": "chart-card",
+    "description": "Chart container with title",
+    "props": ["title", "data"]
+  }
+}

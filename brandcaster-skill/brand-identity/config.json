@@ -1,0 +1,40 @@
+{
+  "brandName": "BrandCaster",
+  "logos": {
+    "logo": "logos/logo.svg",
+    "logo-horizontal": "logos/logo-horizontal.svg",
+    "logo-vertical": "logos/logo-vertical.svg"
+  },
+  "palette": {
+    "primary": {
+      "main": "#FFCC29",
+      "dark": "#ECB236"      
+    },
+    "secondary": {
+      "main": "#4E5A62",
+      "dark": "#2A3E49"
+      
+    },
+    "text": {
+      "color": "#2A3E49",
+      "disabled": "#4E5A62"
+    }
+  },
+  "typography": {
+    "title": "Montserrat-Bold",
+    "body": "Montserrat-Regular"
+  },
+  "spacing": {
+    "slidePadding": 80,
+    "elementGap": 24
+  },
+  "rules": {
+    "maxWordsPerSlide": 40,
+    "maxBullets": 5,
+    "maxColumns": 2
+  },
+  "cssLibs": ["tailwind"],
+  "chartLib": "echarts",
+  "templateFolder": "examples",
+  "iconsFolder": "icons"
+}

@@ -16,7 +16,7 @@ const footerWrapperStyles = `
   padding:0 ${contentHorizontalPaddingPx}px 20px;box-sizing:border-box; 
   `
 
-export const buildEurekaFooterInnerHtml = () =>
+export const buildEurekaFooter = () =>
   `<div style="${footerWrapperStyles}">
 
 <svg style="z-index: -1; position: absolute; top: 250px; left:-800px; transform: rotate(45deg);" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

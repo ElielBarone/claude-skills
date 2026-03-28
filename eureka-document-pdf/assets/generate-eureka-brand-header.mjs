@@ -1,25 +1,24 @@
 import { contentHorizontalPaddingPx, headerHeightPx } from "./eureka-document-config.mjs";
 
-export const buildEurekaHeaderInnerHtml = (logoDataUri) => {
-  const logoImgStyles = `position:absolute;top:16px;right:${contentHorizontalPaddingPx}px;height:40px;display:block;`;
-  const logoImg = logoDataUri ?  `<img src="${logoDataUri}" alt="Eureka" style="${logoImgStyles}" />` : '';
+export const buildEurekaHeader = (logoDataUri, isFirstPage = true) => {
+  const logoImgCommonStyles = `top:16px;right:${contentHorizontalPaddingPx}px;height:40px;display:block;`;
+  const logoImgStyles = isFirstPage
+    ? `position:absolute;${logoImgCommonStyles}`
+    : `position:fixed;${logoImgCommonStyles}`;
+  const logoImg = logoDataUri ? `<img src="${logoDataUri}" alt="Eureka" style="${logoImgStyles}" />` : '';
 
-  const headerWrapperStyles = `  
-  top: 0; 
-  left: 0; 
-  right: 0; 
-  height: ${headerHeightPx}px; 
-  position: absolute; 
-  z-index: 1; 
-  overflow: hidden;
-  ` 
+  const headerWrapperCommonStyles = `top:0;left:0;right:0;height:${headerHeightPx}px;z-index:1;overflow:hidden;`;
+  const headerWrapperStyles = isFirstPage
+    ? `position:absolute;${headerWrapperCommonStyles}`
+    : `position:fixed;${headerWrapperCommonStyles}`;
 
   const topRightSvgStyles = `
   width: 800px;
   position:absolute; 
   right:-300px;
   top:-700px; 
-  transform: rotate(45deg);`;
+  transform: rotate(45deg);
+  z-index: -1;`;
   return `
 <div style="${headerWrapperStyles}">
 <svg style="${topRightSvgStyles}" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">

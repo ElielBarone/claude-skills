@@ -1,10 +1,6 @@
-export const headerHeightPx = 300;
-export const footerHeightPx = 160;
-export const defaultPagePaddingPx = 60;
-export const contentHorizontalPaddingPx = defaultPagePaddingPx;
-export const contentTopPaddingPx = 16;
-export const contentBottomPaddingPx = 16;
-
+export const headerHeightPx = 110;
+export const footerHeightPx = 100;
+export const defaultPagePaddingPx = 40;
 
 
 const cssPxPerMm = 96 / 25.4;

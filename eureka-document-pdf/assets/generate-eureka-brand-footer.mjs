@@ -2,9 +2,13 @@ import { footerHeightPx, defaultPagePaddingPx } from './eureka-document-config.m
 
 
 const footerWrapperStyles = `
-overflow:hidden;
+  overflow:hidden;
   position:fixed;
-  inset:0;  
+  bottom:0; left:0; right:0;
+  height:${footerHeightPx}px;
+  background:#fff;
+  -webkit-print-color-adjust:exact; print-color-adjust:exact;
+  z-index:1;
   display:flex;
   justify-content:center;
   align-items:flex-end;
@@ -13,7 +17,7 @@ overflow:hidden;
   color:#555;
   font-family:'Segoe UI',
   Arial,sans-serif;
-  padding:0 ${defaultPagePaddingPx}px 20px;box-sizing:border-box; 
+  padding:0 ${defaultPagePaddingPx}px ${defaultPagePaddingPx}px; box-sizing:border-box; 
   `
 
 export const buildEurekaFooter = () =>

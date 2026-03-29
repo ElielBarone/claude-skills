@@ -1,6 +1,7 @@
-import { defaultPagePaddingPx, contentTopPaddingPx, contentBottomPaddingPx, headerHeightPx, footerHeightPx } from './eureka-document-config.mjs';
+import { defaultPagePaddingPx, footerHeightPx } from './eureka-document-config.mjs';
 
 const buildSharedMarkdownStyles = () => `
+  .content { padding: ${defaultPagePaddingPx}px; }
   .content h1 { font-size: 22px; font-weight: 700; color: #1a1a1a; margin: 0 0 20px; padding-bottom: 10px; border-bottom: 2px solid #f5a623; }
   .content h2 { font-size: 17px; font-weight: 600; color: #1a1a1a; margin: 28px 0 10px; }
   .content h3 { font-size: 14px; font-weight: 600; color: #333; margin: 20px 0 8px; }
@@ -23,14 +24,7 @@ const buildSharedMarkdownStyles = () => `
   }
 `;
 
-
-const getMarginVertical = ({ showLogo }) => {
-  const topMargin = contentTopPaddingPx;
-  
-  return { topMargin, bottomMargin };
-}
-
-const buildBaseLayoutStyles = ({ showLogo }) => `
+const buildBaseLayoutStyles = () => `
   @page { size: A4; margin: 0; }
   html {
     color-scheme: light;
@@ -39,24 +33,13 @@ const buildBaseLayoutStyles = ({ showLogo }) => `
     overflow: visible;
   }
   body {
-  
     margin: 0;
-    padding: ${contentTopPaddingPx }px 0 ${footerHeightPx}px;
+    padding: ${defaultPagePaddingPx}px 0 ${footerHeightPx}px;
     overflow: visible;
     color: #1a1a1a !important;
     -webkit-text-fill-color: #1a1a1a !important;
     background-color: #fff !important;
   }
-  .page {
-    min-height: auto;
-    display: block;
-    position: relative;
-    overflow: visible;
-    color: #1a1a1a;
-  }
-  .page-brand-layer { display: none !important; }
-
- 
   @media print {
     html { color-scheme: light !important; }
     body {
@@ -67,9 +50,9 @@ const buildBaseLayoutStyles = ({ showLogo }) => `
   }
 `;
 
-export const buildPageContentStyles = ({ showLogo }) => `
+export const buildPageContentStyles = () => `
 <style>
-${buildBaseLayoutStyles({ showLogo })}
+${buildBaseLayoutStyles()}
   html {
     background-color: #fff;
     -webkit-print-color-adjust: exact;

@@ -1,7 +1,7 @@
 import { readFileSync, existsSync } from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
-import { contentHorizontalPaddingPx, headerHeightPx } from "./eureka-document-config.mjs";
+import { defaultPagePaddingPx, headerHeightPx } from "./eureka-document-config.mjs";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const logoPath = path.join(__dirname, 'eureka-logo-horizontal.svg');
@@ -13,14 +13,14 @@ export const buildEurekaHeader = ({ isFirstPage = true, showLogo = true }) => {
   
   const logoImgStyles = `
   position:absolute;
-  top:16px;
-  right:${contentHorizontalPaddingPx}px;
+  top:${defaultPagePaddingPx}px;
+  right:${defaultPagePaddingPx}px;
   height:40px;
   display:block;
   z-index: -1;`;
   const logoImg = showLogo ? `<img src="${logoDataUri}" alt="Eureka" style="${logoImgStyles}" />` : '';
 
-  const headerWrapperCommonStyles = `top:0;left:0;right:0;height:${headerHeightPx}px;z-index:1;overflow:hidden;`;
+  const headerWrapperCommonStyles = `top:0;left:0;right:0;height:${headerHeightPx}px;z-index:1;overflow:hidden;background:#fff;-webkit-print-color-adjust:exact;print-color-adjust:exact;`;
   const headerWrapperStyles = isFirstPage
     ? `position:absolute;${headerWrapperCommonStyles}`
     : `position:fixed;${headerWrapperCommonStyles}`;
@@ -28,7 +28,7 @@ export const buildEurekaHeader = ({ isFirstPage = true, showLogo = true }) => {
   const topRightSvgStyles = `
   width: 800px;
   position:absolute; 
-  right:-300px;
+  right:-280px;
   top:-760px; 
   transform: rotate(45deg);
   z-index: -2;`;

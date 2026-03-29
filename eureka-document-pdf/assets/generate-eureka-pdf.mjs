@@ -76,7 +76,7 @@ const browser = await puppeteer.launch({
 const page = await browser.newPage();
 
 try {
-  await page.setContent(buildFullHtml(buildPageContentStyles(), '', { isFirstPage: true }), {
+  await page.setContent(buildFullHtml(buildPageContentStyles({showLogo: true}), '', { isFirstPage: true }), {
     waitUntil: 'load',
   });
   const countBuffer = await page.pdf(basePdfOptions);
@@ -84,13 +84,13 @@ try {
   const pageCount = countDoc.getPageCount();
 
   if (pageCount === 1) {
-    await page.setContent(buildFullHtml(buildPageContentStyles(), '', { isFirstPage: true }), {
+    await page.setContent(buildFullHtml(buildPageContentStyles({showLogo: true}), '', { isFirstPage: true }), {
       waitUntil: 'load',
     });
     const singleBuffer = await page.pdf(basePdfOptions);
     writeFileSync(outputPdf, singleBuffer);
   } else {
-    await page.setContent(buildFullHtml(buildPageContentStyles(), '', { isFirstPage: true }), {
+    await page.setContent(buildFullHtml(buildPageContentStyles({showLogo: true}), '', { isFirstPage: true }), {
       waitUntil: 'load',
     });
     const page1Buffer = await page.pdf({
@@ -98,7 +98,7 @@ try {
       pageRanges: '1',
     });
 
-    await page.setContent(buildFullHtml(buildPageContentStyles(), '', { isFirstPage: false, showLogo: false }), {
+    await page.setContent(buildFullHtml(buildPageContentStyles({showLogo: false}), '', { isFirstPage: false, showLogo: false }), {
       waitUntil: 'load',
     });
     const restBuffer = await page.pdf({

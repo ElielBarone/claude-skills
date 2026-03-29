@@ -1,4 +1,4 @@
-import { contentHorizontalPaddingPx, contentTopPaddingPx, contentBottomPaddingPx, headerHeightPx, footerHeightPx } from './eureka-document-config.mjs';
+import { defaultPagePaddingPx, contentTopPaddingPx, contentBottomPaddingPx, headerHeightPx, footerHeightPx } from './eureka-document-config.mjs';
 
 const buildSharedMarkdownStyles = () => `
   .content h1 { font-size: 22px; font-weight: 700; color: #1a1a1a; margin: 0 0 20px; padding-bottom: 10px; border-bottom: 2px solid #f5a623; }
@@ -23,7 +23,14 @@ const buildSharedMarkdownStyles = () => `
   }
 `;
 
-const buildBaseLayoutStyles = () => `
+
+const getMarginVertical = ({ showLogo }) => {
+  const topMargin = contentTopPaddingPx;
+  
+  return { topMargin, bottomMargin };
+}
+
+const buildBaseLayoutStyles = ({ showLogo }) => `
   @page { size: A4; margin: 0; }
   html {
     color-scheme: light;
@@ -32,8 +39,9 @@ const buildBaseLayoutStyles = () => `
     overflow: visible;
   }
   body {
+  
     margin: 0;
-    padding: ${headerHeightPx}px 0 ${footerHeightPx}px;
+    padding: ${contentTopPaddingPx }px 0 ${footerHeightPx}px;
     overflow: visible;
     color: #1a1a1a !important;
     -webkit-text-fill-color: #1a1a1a !important;
@@ -48,31 +56,7 @@ const buildBaseLayoutStyles = () => `
   }
   .page-brand-layer { display: none !important; }
 
-  .logo img {
-    position: absolute;
-    top: 16px; right: ${contentHorizontalPaddingPx}px;
-    height: 40px; display: block;
-  }
-  .logo-continuation {
-    position: fixed; top: 0; left: 0; right: 0;
-    height: ${headerHeightPx}px; z-index: 1;
-    overflow: hidden; background: #fff;
-    -webkit-print-color-adjust: exact; print-color-adjust: exact;
-    box-sizing: border-box;
-    display: none;
-  }
-  .footer {
-    position: fixed; bottom: 0; left: 0; right: 0;
-    height: ${footerHeightPx}px; z-index: 1;
-    overflow: hidden; background: #fff;
-  }
-  .content {
-    position: relative;
-    z-index: 10;
-    color: #333 !important;
-    -webkit-text-fill-color: #333 !important;
-    padding: ${contentTopPaddingPx}px ${contentHorizontalPaddingPx}px ${contentBottomPaddingPx}px;
-  }
+ 
   @media print {
     html { color-scheme: light !important; }
     body {
@@ -83,9 +67,9 @@ const buildBaseLayoutStyles = () => `
   }
 `;
 
-export const buildPageContentStyles = () => `
+export const buildPageContentStyles = ({ showLogo }) => `
 <style>
-${buildBaseLayoutStyles()}
+${buildBaseLayoutStyles({ showLogo })}
   html {
     background-color: #fff;
     -webkit-print-color-adjust: exact;

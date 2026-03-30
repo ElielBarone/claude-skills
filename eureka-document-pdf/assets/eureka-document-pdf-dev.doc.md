@@ -1,5 +1,7 @@
 # Eureka Document PDF — Architecture
 
+Para instalação e uso básico por usuários não técnicos, consulte `how-to-use-eureka-document-pdf.doc.md`.
+
 ## How it works
 
 Markdown → HTML → Puppeteer (Chromium) → PDF

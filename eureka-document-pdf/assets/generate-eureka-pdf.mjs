@@ -1,4 +1,4 @@
-import { readFileSync, writeFileSync } from 'fs';
+import { existsSync, readFileSync, realpathSync, writeFileSync } from 'fs';
 import { marked } from 'marked';
 import puppeteer from 'puppeteer-core';
 import path from 'path';
@@ -18,6 +18,35 @@ const outputPdf = process.argv[3];
 
 if (!inputMd || !outputPdf) {
   throw new Error('Usage: node scripts/generate-eureka-pdf.mjs "<input.md>" "<output.pdf>"');
+}
+
+function resolveRenderPaths(sourceMarkdownPath, targetPdfPath) {
+  const resolvedInputPath = path.resolve(sourceMarkdownPath);
+  const resolvedOutputPath = path.resolve(targetPdfPath);
+  const outputLowercasePath = resolvedOutputPath.toLowerCase();
+  const outputExtension = path.extname(resolvedOutputPath).toLowerCase();
+
+  if (resolvedInputPath === resolvedOutputPath) {
+    throw new Error('OUTPUT_PDF must be different from INPUT_MD.');
+  }
+
+  if (outputExtension !== '.pdf') {
+    throw new Error('OUTPUT_PDF must use the .pdf extension.');
+  }
+
+  if (outputLowercasePath.endsWith('.md') || outputLowercasePath.endsWith('.doc.md')) {
+    throw new Error('Refusing to write PDF output to a markdown path.');
+  }
+
+  const resolvedInputRealPath = realpathSync(resolvedInputPath);
+  if (existsSync(resolvedOutputPath)) {
+    const resolvedOutputRealPath = realpathSync(resolvedOutputPath);
+    if (resolvedInputRealPath === resolvedOutputRealPath) {
+      throw new Error('OUTPUT_PDF resolves to INPUT_MD and would overwrite the source markdown.');
+    }
+  }
+
+  return { resolvedInputPath, resolvedOutputPath };
 }
 
 const assetsDir = path.join(projectRoot, 'assets');
@@ -68,7 +97,8 @@ export function splitCoverAndBody(md) {
   return { hasCover: true, coverMarkdown, bodyMarkdown };
 }
 
-const mdContent = readFileSync(inputMd, 'utf8');
+const { resolvedInputPath, resolvedOutputPath } = resolveRenderPaths(inputMd, outputPdf);
+const mdContent = readFileSync(resolvedInputPath, 'utf8');
 const { hasCover, coverMarkdown, bodyMarkdown } = splitCoverAndBody(mdContent);
 const bodyHtml = marked.parse(bodyMarkdown);
 const coverBodyHtml = hasCover ? marked.parse(coverMarkdown.trim() || '') : '';
@@ -159,7 +189,7 @@ async function composePdfWithOptionalCover({
 }
 
 const browser = await puppeteer.launch({
-  executablePath: '/usr/bin/google-chrome',
+  executablePath: process.env.EUREKA_CHROME_PATH || '/usr/bin/google-chrome',
   args: ['--no-sandbox', '--disable-setuid-sandbox'],
   headless: true,
 });
@@ -203,9 +233,9 @@ try {
     overlayFirstBuffer,
     overlayRestBuffer,
   });
-  writeFileSync(outputPdf, finalBuffer);
+  writeFileSync(resolvedOutputPath, finalBuffer);
 } finally {
   await browser.close();
 }
 
-console.log(`Done -> ${outputPdf}`);
+console.log(`Done -> ${resolvedOutputPath}`);

@@ -134,6 +134,25 @@ html.euk-mode-overlay {
   margin: 12px 0 6px;
 }
 
+@media print {
+  .euk-doc h1,
+  .euk-doc h2,
+  .euk-doc h3,
+  .euk-doc h4,
+  .euk-doc h5,
+  .euk-doc h6 {
+    break-after: avoid-page;
+    page-break-after: avoid;
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+
+  .euk-doc .euk-keep-together {
+    break-inside: avoid-page;
+    page-break-inside: avoid;
+  }
+}
+
 .euk-doc p {
   font-size: 12px;
   color: var(--euk-color-secondary-light);

@@ -17,6 +17,18 @@ Treat any failed gate as a failed run.
 2. **Body pages header:** Every page of the **body** content (the page after an optional cover, or PDF page 1 when there is no cover) uses the overlay with the horizontal Eureka logo.
 3. **Footer:** `buildEurekaFooter` appears on every **body** page via the overlay. The cover page shows decorative symbols only, not the full footer strip.
 4. **Layout:** Body text does not overlap the header or footer bands reserved by `headerHeightPx` / `footerHeightPx`.
+5. **Page breaks:** Section headings must not sit alone at the bottom of a page while the following body content starts on the next page. The stylesheet applies print rules on `.euk-doc h1`–`h6` (`break-after: avoid-page`, legacy `page-break-after: avoid`) so headings stay with the content that follows.
+
+## Input immutability (mandatory)
+
+- `INPUT_MD` is read-only for this skill run.
+- Never edit, rewrite, or overwrite the source markdown file.
+- Rendering must only read `INPUT_MD` and write a separate `OUTPUT_PDF`.
+
+## Page breaks and section cohesion
+
+- Prefer normal markdown headings; CSS handles orphan headings for PDF.
+- If the source already contains raw HTML blocks (for example `.euk-keep-together`), preserve them exactly as-is.
 
 ## Cover block syntax
 
@@ -45,6 +57,11 @@ Identify:
 - `INPUT_MD`: absolute path to source markdown
 - `OUTPUT_PDF`: absolute output path (`INPUT_MD` with `.pdf` if not specified)
 
+Rules:
+
+- `OUTPUT_PDF` must not be the same path as `INPUT_MD`.
+- `OUTPUT_PDF` must use the `.pdf` extension.
+
 Required:
 
 - `assets/eureka-logo-horizontal.svg`, `assets/eureka-logo-vertical.svg`
@@ -61,7 +78,7 @@ npm install --save-dev puppeteer-core marked pdf-lib
 
 Confirm:
 
-- Chrome at `/usr/bin/google-chrome` (override `executablePath` in `assets/generate-eureka-pdf.mjs` if different).
+- Chrome at `/usr/bin/google-chrome` (or set `EUREKA_CHROME_PATH` to use a different binary path).
 - `displayHeaderFooter` is **false**; header and footer are part of the overlay HTML, not Chromium templates.
 - Body content uses `@page` margins from `headerHeightPx` / `footerHeightPx` in `eureka-document-config.mjs`.
 - Launch args include `--no-sandbox` and `--disable-setuid-sandbox`.
@@ -73,6 +90,16 @@ node assets/generate-eureka-pdf.mjs "<INPUT_MD>" "<OUTPUT_PDF>"
 ```
 
 Expected: command exits successfully and `OUTPUT_PDF` is created. If generation fails, do not claim success.
+
+Verify source integrity before claiming success:
+
+```bash
+sha256sum "<INPUT_MD>"
+node assets/generate-eureka-pdf.mjs "<INPUT_MD>" "<OUTPUT_PDF>"
+sha256sum "<INPUT_MD>"
+```
+
+The two checksums for `INPUT_MD` must match.
 
 ### Missing header or footer on body pages
 

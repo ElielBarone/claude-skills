@@ -1,4 +1,4 @@
-import { defaultPagePaddingPx, footerHeightPx } from './eureka-document-config.mjs';
+import { defaultPagePaddingPx, headerHeightPx, footerHeightPx } from './eureka-document-config.mjs';
 
 const buildSharedMarkdownStyles = () => `
   .content { padding: ${defaultPagePaddingPx}px; }
@@ -24,8 +24,10 @@ const buildSharedMarkdownStyles = () => `
   }
 `;
 
-const buildBaseLayoutStyles = () => `
-  @page { size: A4; margin: 0; }
+const buildBaseLayoutStyles = ({ mode }) => {
+  const isOverlay = mode === 'overlay';
+  return `
+  @page { size: A4; margin: ${isOverlay ? '0' : `${headerHeightPx}px 0 ${footerHeightPx}px`}; }
   html {
     color-scheme: light;
     margin: 0;
@@ -34,30 +36,38 @@ const buildBaseLayoutStyles = () => `
   }
   body {
     margin: 0;
-    padding: ${defaultPagePaddingPx}px 0 ${footerHeightPx}px;
+    padding: 0;
     overflow: visible;
-    color: #1a1a1a !important;
+    ${isOverlay
+      ? 'background: transparent !important;'
+      : `color: #1a1a1a !important;
     -webkit-text-fill-color: #1a1a1a !important;
-    background-color: #fff !important;
+    background-color: #fff !important;`}
   }
   @media print {
     html { color-scheme: light !important; }
     body {
-      color: #1a1a1a !important;
+      ${isOverlay
+        ? 'background: transparent !important;'
+        : `color: #1a1a1a !important;
       -webkit-text-fill-color: #1a1a1a !important;
-      background: #fff !important;
+      background: #fff !important;`}
     }
   }
 `;
+};
 
-export const buildPageContentStyles = () => `
+export const buildPageContentStyles = ({ mode = 'content' } = {}) => {
+  const isOverlay = mode === 'overlay';
+  return `
 <style>
-${buildBaseLayoutStyles()}
+${buildBaseLayoutStyles({ mode })}
   html {
-    background-color: #fff;
+    background-color: ${isOverlay ? 'transparent' : '#fff'};
     -webkit-print-color-adjust: exact;
     print-color-adjust: exact;
   }
-${buildSharedMarkdownStyles()}
+${mode === 'content' ? buildSharedMarkdownStyles() : ''}
 </style>
 `;
+};

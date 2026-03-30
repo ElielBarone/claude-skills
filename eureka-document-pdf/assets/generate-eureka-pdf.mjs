@@ -8,7 +8,6 @@ import { PDFDocument } from 'pdf-lib';
 import { buildEurekaFooter } from './generate-eureka-brand-footer.mjs';
 import { buildEurekaHeader } from './generate-eureka-brand-header.mjs';
 import { buildPageContentStyles } from './generate-eureka-brand-content-styles.mjs';
-import { headerHeightPx, footerHeightPx } from './eureka-document-config.mjs';
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const projectRoot = path.resolve(__dirname, '..');
@@ -28,43 +27,69 @@ const bodyHtml = marked.parse(mdContent);
 
 const identitySource = readFileSync(identityHtmlStructure, 'utf8');
 
-const footerInnerHtml = buildEurekaFooter();
+const footerHtml = buildEurekaFooter();
+const headerWithLogo = buildEurekaHeader({ showLogo: true });
+const headerWithoutLogo = buildEurekaHeader({ showLogo: false });
 
-const buildHeader = (opts = {}) => buildEurekaHeader(opts);
-
-const buildFullHtml = (contentStyles, headerHtml, { isFirstPage = true, showLogo = true }) => {
+const buildContentDocumentHtml = ({ contentStyles }) => {
   let html = identitySource.replace('<!-- document-content -->', bodyHtml);
-  html = html.replace('<!-- header-content -->', headerHtml);
-  html = html.replace('<!-- footer-content -->', footerInnerHtml);
-  html = html.replace('</head>', contentStyles + buildHeader({ isFirstPage, showLogo }) + '\n</head>');
+  html = html.replace('</head>', contentStyles + '\n</head>');
   return html;
 };
 
-const margin = {
-  top: `${headerHeightPx}px`,
-  bottom: `${footerHeightPx}px`,
-  left: '0',
-  right: '0',
+const buildOverlayDocumentHtml = ({ contentStyles, headerHtml, footerHtml }) => {
+  let html = identitySource.replace('<!-- document-content -->', '');
+  html = html.replace('</head>', contentStyles + '\n</head>');
+  html = html.replace('<body>', `<body>\n${headerHtml}\n${footerHtml}`);
+  return html;
 };
 
 const basePdfOptions = {
   format: 'A4',
   printBackground: true,
   displayHeaderFooter: false,
-  margin,
+  margin: { top: '0', bottom: '0', left: '0', right: '0' },
 };
 
-async function mergePdfBuffers(firstBuffer, restBuffer) {
-  const merged = await PDFDocument.create();
-  const firstDoc = await PDFDocument.load(firstBuffer);
-  const restDoc = await PDFDocument.load(restBuffer);
-  const [firstPage] = await merged.copyPages(firstDoc, [0]);
-  merged.addPage(firstPage);
-  const restCount = restDoc.getPageCount();
-  const restIndices = Array.from({ length: restCount }, (_, i) => i);
-  const restPages = await merged.copyPages(restDoc, restIndices);
-  restPages.forEach((p) => merged.addPage(p));
-  return Buffer.from(await merged.save());
+async function renderPdf(page, html, options = {}) {
+  await page.setContent(html, { waitUntil: 'load' });
+  return page.pdf({ ...basePdfOptions, ...options });
+}
+
+async function composeContentAndOverlay({
+  contentBuffer,
+  overlayFirstBuffer,
+  overlayRestBuffer,
+}) {
+  const composed = await PDFDocument.create();
+  const contentDoc = await PDFDocument.load(contentBuffer);
+  const overlayFirstDoc = await PDFDocument.load(overlayFirstBuffer);
+  const overlayRestDoc = overlayRestBuffer ? await PDFDocument.load(overlayRestBuffer) : null;
+  const contentPageCount = contentDoc.getPageCount();
+
+  for (let pageIndex = 0; pageIndex < contentPageCount; pageIndex += 1) {
+    const [contentPage] = await composed.copyPages(contentDoc, [pageIndex]);
+    composed.addPage(contentPage);
+
+    let overlaySourcePage = null;
+    if (pageIndex === 0) {
+      [overlaySourcePage] = overlayFirstDoc.getPages();
+    } else if (overlayRestDoc) {
+      [overlaySourcePage] = overlayRestDoc.getPages();
+    }
+
+    if (overlaySourcePage) {
+      const overlayEmbeddedPage = await composed.embedPage(overlaySourcePage);
+      contentPage.drawPage(overlayEmbeddedPage, {
+        x: 0,
+        y: 0,
+        width: contentPage.getWidth(),
+        height: contentPage.getHeight(),
+      });
+    }
+  }
+
+  return Buffer.from(await composed.save());
 }
 
 const browser = await puppeteer.launch({
@@ -74,41 +99,31 @@ const browser = await puppeteer.launch({
 });
 
 const page = await browser.newPage();
+const contentDocumentHtml = buildContentDocumentHtml({
+  contentStyles: buildPageContentStyles({ mode: 'content' }),
+});
+const overlayFirstPageHtml = buildOverlayDocumentHtml({
+  contentStyles: buildPageContentStyles({ mode: 'overlay' }),
+  headerHtml: headerWithLogo,
+  footerHtml,
+});
+const overlayRemainingPagesHtml = buildOverlayDocumentHtml({
+  contentStyles: buildPageContentStyles({ mode: 'overlay' }),
+  headerHtml: headerWithoutLogo,
+  footerHtml,
+});
 
 try {
-  await page.setContent(buildFullHtml(buildPageContentStyles(), '', { isFirstPage: true }), {
-    waitUntil: 'load',
+  const contentBuffer = await renderPdf(page, contentDocumentHtml);
+  const overlayFirstBuffer = await renderPdf(page, overlayFirstPageHtml, { pageRanges: '1' });
+  const overlayRestBuffer = await renderPdf(page, overlayRemainingPagesHtml, { pageRanges: '1' });
+
+  const finalBuffer = await composeContentAndOverlay({
+    contentBuffer,
+    overlayFirstBuffer,
+    overlayRestBuffer,
   });
-  const countBuffer = await page.pdf(basePdfOptions);
-  const countDoc = await PDFDocument.load(countBuffer);
-  const pageCount = countDoc.getPageCount();
-
-  if (pageCount === 1) {
-    await page.setContent(buildFullHtml(buildPageContentStyles(), '', { isFirstPage: true }), {
-      waitUntil: 'load',
-    });
-    const singleBuffer = await page.pdf(basePdfOptions);
-    writeFileSync(outputPdf, singleBuffer);
-  } else {
-    await page.setContent(buildFullHtml(buildPageContentStyles(), '', { isFirstPage: true }), {
-      waitUntil: 'load',
-    });
-    const page1Buffer = await page.pdf({
-      ...basePdfOptions,
-      pageRanges: '1',
-    });
-
-    await page.setContent(buildFullHtml(buildPageContentStyles(), '', { isFirstPage: false, showLogo: false }), {
-      waitUntil: 'load',
-    });
-    const restBuffer = await page.pdf({
-      ...basePdfOptions,
-      pageRanges: '2-',
-    });
-
-    const mergedBuffer = await mergePdfBuffers(page1Buffer, restBuffer);
-    writeFileSync(outputPdf, mergedBuffer);
-  }
+  writeFileSync(outputPdf, finalBuffer);
 } finally {
   await browser.close();
 }

@@ -13,25 +13,26 @@ The run is complete only when all validation gates pass.
 
 Treat any failed gate as a failed run.
 
-1. Page 1: header shows the Eureka logo (`buildEurekaHeader(logoDataUri)`). Pages 2+: header shows the grey top symbol (`buildEurekaHeader()`), not the logo.
-2. Footer (`buildEurekaFooter`) appears on every page.
-3. Body content does not overlap header or footer.
+1. **Cover (optional):** If the source markdown begins with `# Cover` or `# Capa` (case-insensitive), the first PDF page is the cover (vertical logo, decorative symbols, inner markdown in `.cover-body`). The cover page does not use the header/footer overlay.
+2. **First body page:** The first page of the **body** content (the page after an optional cover, or PDF page 1 when there is no cover) uses the overlay with the horizontal Eureka logo. Subsequent body pages use the overlay **without** the logo (grey symbol only in the header band).
+3. **Footer:** `buildEurekaFooter` appears on every **body** page via the overlay. The cover page shows decorative symbols only, not the full footer strip.
+4. **Layout:** Body text does not overlap the header or footer bands reserved by `headerHeightPx` / `footerHeightPx`.
 
-## Header and Footer Template Placement
+## Cover block syntax
 
-Chromium renders `headerTemplate`/`footerTemplate` in a separate mini-document with a default **`body { margin: 8px }`**. The canonical templates compensate using **`chromiumTemplateBodyMarginPx`** (8) from `eureka-document-config.mjs`: **`margin: -8px -8px 0 -8px`** on the outer shell and **`width: a4PageWidthPx + 16`**. Do not rely on `<style>html,body{margin:0}</style>` alone.
+- First non-empty line: `# Cover` or `# Capa`.
+- Cover content: markdown until the next line that is a level-1 heading (`# ` at the start of the line).
+- Document body: from that next `#` heading through the end of the file.
 
-## Canonical Implementation References
+## Canonical implementation references
 
-- `assets/generate-eureka-pdf.mjs`
+- `assets/generate-eureka-pdf.mjs` (`splitCoverAndBody`, `composePdfWithOptionalCover`)
+- `assets/generate-eureka-brand-cover.mjs`
 - `assets/generate-eureka-brand-header.mjs`
 - `assets/generate-eureka-brand-footer.mjs`
 - `assets/generate-eureka-brand-content-styles.mjs`
 
-
-`buildPlaceholderHeaderTemplate` (in `generate-eureka-brand-header.mjs`) is used only for the internal page-count PDF pass; it is not part of the final merged output.
-
-## Phase 1 — Resolve Inputs
+## Phase 1 — Resolve inputs
 
 Identify:
 
@@ -39,9 +40,9 @@ Identify:
 - `INPUT_MD`: absolute path to source markdown
 - `OUTPUT_PDF`: absolute output path (`INPUT_MD` with `.pdf` if not specified)
 
-Required files:
+Required:
 
-- `assets/euk-logo-horizontal.png`
+- `assets/eureka-logo-horizontal.svg`, `assets/eureka-logo-vertical.svg`
 - `assets/generate-eureka-pdf.mjs`
 
 Stop and report any missing path before continuing.
@@ -55,8 +56,8 @@ npm install --save-dev puppeteer-core marked pdf-lib
 Confirm:
 
 - Chrome at `/usr/bin/google-chrome` (override `executablePath` in `assets/generate-eureka-pdf.mjs` if different).
-- `displayHeaderFooter: true` is set.
-- PDF top/bottom margins use `headerHeightPx` / `footerHeightPx` from `eureka-document-config.mjs`.
+- `displayHeaderFooter` is **false**; header and footer are part of the overlay HTML, not Chromium templates.
+- Body content uses `@page` margins from `headerHeightPx` / `footerHeightPx` in `eureka-document-config.mjs`.
 - Launch args include `--no-sandbox` and `--disable-setuid-sandbox`.
 
 ## Phase 3 — Render
@@ -67,14 +68,14 @@ node assets/generate-eureka-pdf.mjs "<INPUT_MD>" "<OUTPUT_PDF>"
 
 Expected: command exits successfully and `OUTPUT_PDF` is created. If generation fails, do not claim success.
 
-### Missing header or footer
+### Missing header or footer on body pages
 
 Diagnose:
-- `displayHeaderFooter` disabled.
-- Broken template generation.
+
+- Broken overlay HTML generation.
 - `pdf-lib` merge failure.
 
 Fix:
-- Ensure `displayHeaderFooter: true` in `assets/generate-eureka-pdf.mjs`.
-- Rebuild templates via `buildEurekaHeader(logoDataUri)`, `buildEurekaHeader()`, `buildEurekaFooter` (and `buildPlaceholderHeaderTemplate` for the internal counting pass).
+
+- Rebuild overlays via `buildEurekaHeader({ showLogo: true/false })` and `buildEurekaFooter`.
 - Regenerate and re-run validation gates.

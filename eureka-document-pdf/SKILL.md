@@ -13,16 +13,19 @@ The run is complete only when all validation gates pass.
 
 Treat any failed gate as a failed run.
 
-1. **Cover (optional):** If the source markdown begins with `# Cover` or `# Capa` (case-insensitive), the first PDF page is the cover (vertical logo, decorative symbols, inner markdown in `.cover-body`). The cover page does not use the header/footer overlay.
+1. **Cover (optional):** If the source markdown includes one supported cover comment block, the first PDF page is the cover (vertical logo, decorative symbols, inner markdown in `.edp-cover-body`). The cover page does not use the header/footer overlay.
 2. **First body page:** The first page of the **body** content (the page after an optional cover, or PDF page 1 when there is no cover) uses the overlay with the horizontal Eureka logo. Subsequent body pages use the overlay **without** the logo (grey symbol only in the header band).
 3. **Footer:** `buildEurekaFooter` appears on every **body** page via the overlay. The cover page shows decorative symbols only, not the full footer strip.
 4. **Layout:** Body text does not overlap the header or footer bands reserved by `headerHeightPx` / `footerHeightPx`.
 
 ## Cover block syntax
 
-- First non-empty line: `# Cover` or `# Capa`.
-- Cover content: markdown until the next line that is a level-1 heading (`# ` at the start of the line).
-- Document body: from that next `#` heading through the end of the file.
+- Supported delimiters:
+  - `<!-- cover start -->` ... `<!-- cover end -->`
+  - `<!-- capa inicio-->` ... `<!-- capa fim-->`
+- Cover content: markdown inside one matched start/end delimiter pair.
+- Document body: markdown outside the matched cover delimiter block.
+- If there is no valid full start/end pair, the document is rendered without cover.
 
 ## Canonical implementation references
 
@@ -31,6 +34,8 @@ Treat any failed gate as a failed run.
 - `assets/generate-eureka-brand-header.mjs`
 - `assets/generate-eureka-brand-footer.mjs`
 - `assets/generate-eureka-brand-content-styles.mjs`
+- `assets/eureka-document-pdf.css` (`edp-*` classes; modes `edp-mode-content` / `edp-mode-cover` / `edp-mode-overlay`)
+- `assets/eureka-document-pdf-structure.html` (`__EDP_MODE__` placeholder on `<html>`)
 
 ## Phase 1 — Resolve inputs
 
@@ -43,6 +48,7 @@ Identify:
 Required:
 
 - `assets/eureka-logo-horizontal.svg`, `assets/eureka-logo-vertical.svg`
+- `assets/eureka-document-pdf.css`, `assets/eureka-document-pdf-structure.html`
 - `assets/generate-eureka-pdf.mjs`
 
 Stop and report any missing path before continuing.

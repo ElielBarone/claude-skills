@@ -24,23 +24,47 @@ const assetsDir = path.join(projectRoot, 'assets');
 const identityHtmlStructure = path.join(assetsDir, 'eureka-document-pdf-structure.html');
 
 export function splitCoverAndBody(md) {
-  const lines = md.split(/\r?\n/);
-  let i = 0;
-  while (i < lines.length && lines[i].trim() === '') i += 1;
-  if (i >= lines.length) {
+  const markerPairs = [
+    {
+      start: /<!--\s*cover\s+start\s*-->/i,
+      end: /<!--\s*cover\s+end\s*-->/i,
+    },
+    {
+      start: /<!--\s*capa\s+inicio\s*-->/i,
+      end: /<!--\s*capa\s+fim\s*-->/i,
+    },
+  ];
+
+  let selectedPair = null;
+  let selectedStartMatch = null;
+
+  for (const pair of markerPairs) {
+    const startMatch = pair.start.exec(md);
+    if (!startMatch) continue;
+
+    if (!selectedStartMatch || startMatch.index < selectedStartMatch.index) {
+      selectedPair = pair;
+      selectedStartMatch = startMatch;
+    }
+  }
+
+  if (!selectedPair || !selectedStartMatch) {
     return { hasCover: false, coverMarkdown: '', bodyMarkdown: md };
   }
-  const headerLine = lines[i].trim();
-  if (!/^#\s*(cover|capa)\s*$/i.test(headerLine)) {
+
+  const searchStartIndex = selectedStartMatch.index + selectedStartMatch[0].length;
+  const remainingContent = md.slice(searchStartIndex);
+  const endMatch = selectedPair.end.exec(remainingContent);
+
+  if (!endMatch) {
     return { hasCover: false, coverMarkdown: '', bodyMarkdown: md };
   }
-  let j = i + 1;
-  for (; j < lines.length; j += 1) {
-    const line = lines[j];
-    if (/^#\s+/.test(line)) break;
-  }
-  const coverMarkdown = lines.slice(i + 1, j).join('\n');
-  const bodyMarkdown = lines.slice(j).join('\n');
+
+  const coverMarkdown = remainingContent.slice(0, endMatch.index);
+  const bodyMarkdown =
+    md.slice(0, selectedStartMatch.index) +
+    remainingContent.slice(endMatch.index + endMatch[0].length);
+
   return { hasCover: true, coverMarkdown, bodyMarkdown };
 }
 
@@ -53,24 +77,30 @@ const identitySource = readFileSync(identityHtmlStructure, 'utf8');
 
 const footerHtml = buildEurekaFooter();
 const headerWithLogo = buildEurekaHeader({ showLogo: true });
+const headerWithoutLogo = buildEurekaHeader({ showLogo: false });
+
+const applyModeAndStyles = (html, modeClass, contentStyles) => {
+  let out = html.replace('__EDP_MODE__', modeClass);
+  out = out.replace('</head>', `${contentStyles}\n</head>`);
+  return out;
+};
 
 const buildContentDocumentHtml = ({ contentStyles }) => {
-  let html = identitySource.replace('<!-- document-content -->', bodyHtml);
-  html = html.replace('</head>', contentStyles + '\n</head>');
-  return html;
+  const inner = `<div class="edp-doc">${bodyHtml}</div>`;
+  let html = identitySource.replace('<!-- document-content -->', inner);
+  return applyModeAndStyles(html, 'edp-mode-content', contentStyles);
 };
 
 const buildCoverDocumentHtml = ({ contentStyles }) => {
   const coverInner = buildEurekaCover({ bodyHtml: coverBodyHtml });
   let html = identitySource.replace('<!-- document-content -->', coverInner);
-  html = html.replace('</head>', contentStyles + '\n</head>');
-  return html;
+  return applyModeAndStyles(html, 'edp-mode-cover', contentStyles);
 };
 
-const buildOverlayDocumentHtml = ({ contentStyles, headerHtml, footerHtml }) => {
+const buildOverlayDocumentHtml = ({ contentStyles, headerHtml, footerHtml: footerBlock }) => {
   let html = identitySource.replace('<!-- document-content -->', '');
-  html = html.replace('</head>', contentStyles + '\n</head>');
-  html = html.replace('<body>', `<body>\n${headerHtml}\n${footerHtml}`);
+  html = applyModeAndStyles(html, 'edp-mode-overlay', contentStyles);
+  html = html.replace('<body>', `<body>\n${headerHtml}\n${footerBlock}`);
   return html;
 };
 
@@ -151,7 +181,7 @@ const overlayFirstPageHtml = buildOverlayDocumentHtml({
 });
 const overlayRemainingPagesHtml = buildOverlayDocumentHtml({
   contentStyles: buildPageContentStyles({ mode: 'overlay' }),
-  headerHtml: headerWithLogo,
+  headerHtml: headerWithoutLogo,
   footerHtml,
 });
 
@@ -159,8 +189,14 @@ try {
   const contentBuffer = await renderPdf(page, contentDocumentHtml);
   const coverBuffer =
     hasCover && coverDocumentHtml ? await renderPdf(page, coverDocumentHtml, { pageRanges: '1' }) : null;
-  const overlayFirstBuffer = await renderPdf(page, overlayFirstPageHtml, { pageRanges: '1' });
-  const overlayRestBuffer = await renderPdf(page, overlayRemainingPagesHtml, { pageRanges: '1' });
+  const overlayFirstBuffer = await renderPdf(page, overlayFirstPageHtml, {
+    pageRanges: '1',
+    omitBackground: true,
+  });
+  const overlayRestBuffer = await renderPdf(page, overlayRemainingPagesHtml, {
+    pageRanges: '1',
+    omitBackground: true,
+  });
 
   const finalBuffer = await composePdfWithOptionalCover({
     coverBuffer,

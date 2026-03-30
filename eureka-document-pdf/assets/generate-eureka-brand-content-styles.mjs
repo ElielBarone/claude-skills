@@ -1,4 +1,31 @@
+import { readFileSync } from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import { defaultPagePaddingPx, headerHeightPx, footerHeightPx } from './eureka-document-config.mjs';
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const robotoFontDir = path.join(__dirname, 'fonts');
+
+const fontFiles = [
+  { weight: 400, fileName: 'roboto-latin-400-normal.woff2' },
+  { weight: 600, fileName: 'roboto-latin-600-normal.woff2' },
+  { weight: 700, fileName: 'roboto-latin-700-normal.woff2' },
+];
+
+const buildRobotoFontFaces = () =>
+  fontFiles
+    .map(({ weight, fileName }) => {
+      const fontBuffer = readFileSync(path.join(robotoFontDir, fileName));
+      const fontDataUri = `data:font/woff2;base64,${fontBuffer.toString('base64')}`;
+      return `@font-face {
+  font-family: 'Roboto';
+  src: url('${fontDataUri}') format('woff2');
+  font-style: normal;
+  font-weight: ${weight};
+  font-display: swap;
+}`;
+    })
+    .join('\n');
 
 const buildSharedMarkdownStyles = () => `
   .content { padding: ${defaultPagePaddingPx}px; }
@@ -9,8 +36,8 @@ const buildSharedMarkdownStyles = () => `
   .content ul, .content ol { font-size: 12px; color: #333; line-height: 1.7; margin: 0 0 12px; padding-left: 20px; }
   .content li { margin-bottom: 4px; }
   .content table { width: 100%; border-collapse: collapse; font-size: 11px; margin: 0 0 16px; }
-  .content th { background: #f5a623; color: #fff; font-weight: 600; padding: 6px 10px; text-align: left; }
-  .content td { border: 1px solid #e5e5e5; padding: 6px 10px; color: #333; }
+  .content th { background: #f5a623; color: #1a1a1a; font-weight: 600; padding: 6px 10px; text-align: left; }
+  .content td { border: 1px solid #e5e5e5; padding: 6px 10px; color: #333; background: #fff; }
   .content tr:nth-child(even) td { background: #fafafa; }
   .content code { font-family: 'Courier New', monospace; background: #f4f4f4; padding: 1px 4px; border-radius: 3px; font-size: 11px; }
   .content pre { background: #f4f4f4; padding: 12px; border-radius: 6px; overflow-x: auto; margin: 0 0 16px; }
@@ -33,11 +60,13 @@ const buildBaseLayoutStyles = ({ mode }) => {
     margin: 0;
     padding: 0;
     overflow: visible;
+    font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
   }
   body {
     margin: 0;
     padding: 0;
     overflow: visible;
+    font-family: 'Roboto', system-ui, -apple-system, 'Segoe UI', sans-serif;
     ${isOverlay
       ? 'background: transparent !important;'
       : `color: #1a1a1a !important;
@@ -61,6 +90,7 @@ export const buildPageContentStyles = ({ mode = 'content' } = {}) => {
   const isOverlay = mode === 'overlay';
   return `
 <style>
+${buildRobotoFontFaces()}
 ${buildBaseLayoutStyles({ mode })}
   html {
     background-color: ${isOverlay ? 'transparent' : '#fff'};

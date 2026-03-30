@@ -1,5 +1,6 @@
 {
   "devDependencies": {
+    "@fontsource/roboto": "^5.2.10",
     "marked": "^17.0.5",
     "pdf-lib": "^1.17.1",
     "puppeteer-core": "^24.40.0"

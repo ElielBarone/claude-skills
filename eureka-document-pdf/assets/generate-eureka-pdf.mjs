@@ -77,29 +77,28 @@ const identitySource = readFileSync(identityHtmlStructure, 'utf8');
 
 const footerHtml = buildEurekaFooter();
 const headerWithLogo = buildEurekaHeader({ showLogo: true });
-const headerWithoutLogo = buildEurekaHeader({ showLogo: false });
 
 const applyModeAndStyles = (html, modeClass, contentStyles) => {
-  let out = html.replace('__EDP_MODE__', modeClass);
+  let out = html.replace('__EUK_MODE__', modeClass);
   out = out.replace('</head>', `${contentStyles}\n</head>`);
   return out;
 };
 
 const buildContentDocumentHtml = ({ contentStyles }) => {
-  const inner = `<div class="edp-doc">${bodyHtml}</div>`;
+  const inner = `<div class="euk-doc">${bodyHtml}</div>`;
   let html = identitySource.replace('<!-- document-content -->', inner);
-  return applyModeAndStyles(html, 'edp-mode-content', contentStyles);
+  return applyModeAndStyles(html, 'euk-mode-content', contentStyles);
 };
 
 const buildCoverDocumentHtml = ({ contentStyles }) => {
   const coverInner = buildEurekaCover({ bodyHtml: coverBodyHtml });
   let html = identitySource.replace('<!-- document-content -->', coverInner);
-  return applyModeAndStyles(html, 'edp-mode-cover', contentStyles);
+  return applyModeAndStyles(html, 'euk-mode-cover', contentStyles);
 };
 
 const buildOverlayDocumentHtml = ({ contentStyles, headerHtml, footerHtml: footerBlock }) => {
   let html = identitySource.replace('<!-- document-content -->', '');
-  html = applyModeAndStyles(html, 'edp-mode-overlay', contentStyles);
+  html = applyModeAndStyles(html, 'euk-mode-overlay', contentStyles);
   html = html.replace('<body>', `<body>\n${headerHtml}\n${footerBlock}`);
   return html;
 };
@@ -181,7 +180,7 @@ const overlayFirstPageHtml = buildOverlayDocumentHtml({
 });
 const overlayRemainingPagesHtml = buildOverlayDocumentHtml({
   contentStyles: buildPageContentStyles({ mode: 'overlay' }),
-  headerHtml: headerWithoutLogo,
+  headerHtml: headerWithLogo,
   footerHtml,
 });
 

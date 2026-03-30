@@ -14,7 +14,7 @@ The run is complete only when all validation gates pass.
 Treat any failed gate as a failed run.
 
 1. **Cover (optional):** If the source markdown includes one supported cover comment block, the first PDF page is the cover (vertical logo, decorative symbols, inner markdown in `.edp-cover-body`). The cover page does not use the header/footer overlay.
-2. **First body page:** The first page of the **body** content (the page after an optional cover, or PDF page 1 when there is no cover) uses the overlay with the horizontal Eureka logo. Subsequent body pages use the overlay **without** the logo (grey symbol only in the header band).
+2. **Body pages header:** Every page of the **body** content (the page after an optional cover, or PDF page 1 when there is no cover) uses the overlay with the horizontal Eureka logo.
 3. **Footer:** `buildEurekaFooter` appears on every **body** page via the overlay. The cover page shows decorative symbols only, not the full footer strip.
 4. **Layout:** Body text does not overlap the header or footer bands reserved by `headerHeightPx` / `footerHeightPx`.
 
@@ -83,5 +83,5 @@ Diagnose:
 
 Fix:
 
-- Rebuild overlays via `buildEurekaHeader({ showLogo: true/false })` and `buildEurekaFooter`.
+- Rebuild overlays via `buildEurekaHeader({ showLogo: true })` and `buildEurekaFooter`.
 - Regenerate and re-run validation gates.

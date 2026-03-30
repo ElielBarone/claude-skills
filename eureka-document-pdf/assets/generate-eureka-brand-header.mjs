@@ -11,13 +11,13 @@ const logoDataUri = existsSync(logoPath)
 
 export const buildEurekaHeader = ({ showLogo = true } = {}) => {
   const logoImg = showLogo && logoDataUri
-    ? `<img src="${logoDataUri}" alt="Eureka" class="edp-header-logo" />`
+    ? `<img src="${logoDataUri}" alt="Eureka" class="euk-header-logo" />`
     : '';
 
-  return `<div class="edp-header-band">
+  return `<div class="euk-header-band">
   ${generateEurekaSvgSymbol({
     color: '#eee',
-    className: 'edp-header-symbol',
+    className: 'euk-header-symbol',
   }).trim()}
   ${logoImg}
 </div>`;

@@ -8,9 +8,9 @@ The generator uses independent render passes with Puppeteer (`displayHeaderFoote
 
 - **Content pass:** renders the document body markdown (flow only, with `@page` margins that clear header/footer bands).
 - **Optional cover pass:** if the markdown contains one supported cover comment block, a separate one-page PDF is built with the vertical logo, top/bottom decorative symbols, and the markdown inside the comment delimiters.
-- **Overlay pass:** renders fixed header/footer only (two one-page PDFs: with logo, without logo).
+- **Overlay pass:** renders fixed header/footer only (one one-page PDF with logo).
 
-The final PDF is produced by optionally prepending the cover page, then copying each body content page and drawing the appropriate overlay on top. The **first body page** receives the overlay with the horizontal logo; further body pages receive the overlay without the logo.
+The final PDF is produced by optionally prepending the cover page, then copying each body content page and drawing the overlay with the horizontal logo on top of every body page.
 
 ## Key files
 
@@ -73,14 +73,13 @@ Content and overlay are isolated:
 1. Optionally render a **one-page cover PDF** when a supported cover comment block is present.
 2. Render full **body content PDF** once.
 3. Render one-page **overlay with logo**.
-4. Render one-page **overlay without logo**.
-5. Compose with `pdf-lib`:
+4. Compose with `pdf-lib`:
    - If cover exists, copy the cover page first (no overlay).
-   - For each body content page index `j`, copy the page and draw overlay-with-logo on `j === 0`, overlay-without-logo on `j >= 1`.
+   - For each body content page index `j`, copy the page and draw overlay-with-logo.
 
 ## Conditional logo
 
-The horizontal logo (`eureka-logo-horizontal.svg`) is loaded once at startup as a base64 data URI. `buildEurekaHeader({ showLogo: true/false })` controls whether the `<img class="edp-header-logo">` is included in the overlay header HTML. The vertical logo (`eureka-logo-vertical.svg`) is used only on the cover page.
+The horizontal logo (`eureka-logo-horizontal.svg`) is loaded once at startup as a base64 data URI. `buildEurekaHeader({ showLogo: true })` includes the `<img class="edp-header-logo">` in the overlay header HTML for all body pages. The vertical logo (`eureka-logo-vertical.svg`) is used only on the cover page.
 
 ## Constraints
 

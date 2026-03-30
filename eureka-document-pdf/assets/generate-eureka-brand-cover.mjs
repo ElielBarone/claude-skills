@@ -11,23 +11,23 @@ const logoDataUri = existsSync(logoPath)
 
 export const buildEurekaCover = ({ bodyHtml = '' } = {}) => {
   const logoImg = logoDataUri
-    ? `<img src="${logoDataUri}" alt="Eureka" class="edp-cover-logo" />`
+    ? `<img src="${logoDataUri}" alt="Eureka" class="euk-cover-logo" />`
     : '';
 
-  return `<div class="edp-cover-root">
+  return `<div class="euk-cover-root">
   ${generateEurekaSvgSymbol({
     color: '#eee',
-    className: 'edp-cover-symbol-top',
+    className: 'euk-cover-symbol-top',
   }).trim()}
-  <div class="edp-cover-footer-deco">
+  <div class="euk-cover-footer-deco">
     ${generateEurekaSvgSymbol({
       color: '#f5a623',
-      className: 'edp-cover-symbol-bottom',
+      className: 'euk-cover-symbol-bottom',
     }).trim()}
   </div>
-  <div class="edp-cover-inner">
+  <div class="euk-cover-inner">
     ${logoImg}
-    <div class="edp-cover-body edp-doc">${bodyHtml}</div>
+    <div class="euk-cover-body euk-doc">${bodyHtml}</div>
   </div>
 </div>`;
 };

@@ -40,11 +40,11 @@ export const buildRootVariablesStyle = ({ mode = 'content' } = {}) => {
   const marginBottom = isCover || isOverlay ? '0' : `${footerHeightPx}px`;
   return `<style>
 :root {
-  --edp-header-height: ${headerHeightPx}px;
-  --edp-footer-height: ${footerHeightPx}px;
-  --edp-page-padding: ${defaultPagePaddingPx}px;
-  --edp-page-margin-top: ${marginTop};
-  --edp-page-margin-bottom: ${marginBottom};
+  --euk-header-height: ${headerHeightPx}px;
+  --euk-footer-height: ${footerHeightPx}px;
+  --euk-page-padding: ${defaultPagePaddingPx}px;
+  --euk-page-margin-top: ${marginTop};
+  --euk-page-margin-bottom: ${marginBottom};
 }
 </style>`;
 };
